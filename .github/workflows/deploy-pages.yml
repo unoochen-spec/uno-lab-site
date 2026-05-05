@@ -1,3 +1,5 @@
+# After first push: Repo → Settings → Pages → Build and deployment → Source: GitHub Actions.
+# Site URL: https://<用户>.github.io/<仓库名>/
 name: Deploy GitHub Pages
 on:
   push:
