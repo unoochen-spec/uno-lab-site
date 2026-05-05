@@ -1,5 +1,5 @@
-# After first push: Repo → Settings → Pages → Build and deployment → Source: GitHub Actions.
-# Site URL: https://<用户>.github.io/<仓库名>/
+# 首次推送后：仓库 Settings → Pages → Build and deployment → Source 选「GitHub Actions」。
+# 站点地址：https://<用户名>.github.io/<仓库名>/
 name: Deploy GitHub Pages
 on:
   push:
@@ -13,15 +13,21 @@ concurrency:
   cancel-in-progress: true
 jobs:
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+      - name: Prepare static bundle
+        run: |
+          mkdir -p _site
+          rsync -a \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='node_modules' \
+            --exclude='.vercel' \
+            ./ _site/
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
       - id: deployment
         uses: actions/deploy-pages@v4
