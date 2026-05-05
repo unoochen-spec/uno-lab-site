@@ -25,6 +25,7 @@ jobs:
             --exclude='.github' \
             --exclude='node_modules' \
             --exclude='.vercel' \
+            --exclude='tools' \
             ./ _site/
       - uses: actions/upload-pages-artifact@v3
         with:
