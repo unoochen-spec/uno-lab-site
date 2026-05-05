@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# 用法：export GITHUB_TOKEN="ghp_你的Classic令牌"  （需勾选 repo）
+# 用法：export GITHUB_TOKEN="ghp_你的Classic令牌"
+#       创建令牌时需勾选：repo、workflow（否则会拒绝推送 workflows）
 #       bash tools/github-pages-push.sh
 # 可选：GITHUB_REPO_NAME=uno-lab-site（默认） GITHUB_REPO_OWNER=组织名（默认当前用户）
 set -euo pipefail
@@ -11,7 +12,7 @@ TOKEN="${GITHUB_TOKEN:-${GH_TOKEN:-}}"
 REPO_NAME="${GITHUB_REPO_NAME:-uno-lab-site}"
 
 if [[ -z "$TOKEN" ]]; then
-  echo "缺少 GITHUB_TOKEN。请到 https://github.com/settings/tokens 创建 Classic PAT（勾选 repo），然后执行：" >&2
+  echo "缺少 GITHUB_TOKEN。请到 https://github.com/settings/tokens 创建 Classic PAT（勾选 repo 与 workflow），然后执行：" >&2
   echo "  export GITHUB_TOKEN='ghp_……'" >&2
   echo "  bash tools/github-pages-push.sh" >&2
   exit 1
