@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Uno’s Portfolio</title>
+    <meta name="description" content="Uno Chen — Designed with intention, felt without effort." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Noto+Sans+SC:wght@400;500;700&family=Pinyon+Script&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body id="top">
+    <!-- =========================================
+         Top navigation
+         ========================================= -->
+    <header class="topnav" id="topnav" role="banner">
+      <div class="topnav__inner">
+        <a href="#home" class="brand" data-tab="home" aria-label="Uno’s Portfolio Home">
+          <img
+            class="brand__mark"
+            src="assets/brand-uno-logo.png"
+            alt=""
+            aria-hidden="true"
+            width="32"
+            height="32"
+            decoding="async"
+          />
+          <span class="brand__wordmark">Uno’s Portfolio</span>
+        </a>
+        <nav class="tabs" aria-label="主导航">
+          <a class="tab is-active" href="#home" data-tab="home" data-route="home" role="tab">
+            <span>Home</span>
+            <span class="tab__dot" aria-hidden="true"></span>
+          </a>
+          <a class="tab" href="#work" data-tab="work" data-route="work" role="tab">
+            <span>Work</span>
+            <span class="tab__dot" aria-hidden="true"></span>
+          </a>
+          <a class="tab" href="#ability" data-tab="ability" data-route="ability" role="tab">
+            <span>Ability</span>
+            <span class="tab__dot" aria-hidden="true"></span>
+          </a>
+        </nav>
+        <a class="nav-cta" href="#contact" data-action="scroll-to-contact">
+          <span>Contact me</span><span class="nav-cta__arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="subnav" id="subnav" aria-label="Work 二级导航">
+        <div class="subnav__inner" role="tablist">
+          <a class="subtab is-active" href="#work-xiaoying" data-subtab="xiaoying" role="tab">
+            <span class="subtab__title">剪小映</span>
+          </a>
+          <a class="subtab" href="#work-jianying" data-subtab="jianying" role="tab">
+            <span class="subtab__title">剪映</span>
+          </a>
+          <a class="subtab" href="#work-smart-edit" data-subtab="smart-edit" role="tab">
+            <span class="subtab__title latin">Smart Edit</span>
+          </a>
+          <a class="subtab" href="#work-capcut" data-subtab="capcut" role="tab">
+            <span class="subtab__title latin">CapCut</span>
+          </a>
+          <a class="subtab" href="#work-dianjing" data-subtab="dianjing" role="tab">
+            <span class="subtab__title">企鹅电竞</span>
+          </a>
+          <a class="subtab" href="#work-trovo" data-subtab="trovo" role="tab">
+            <span class="subtab__title latin">Trovo</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="main">
+      <!-- ===================================================
+           HOME
+           =================================================== -->
+      <section class="page page--home is-active" data-page="home" id="page-home">
+        <div class="home-ambient" aria-hidden="true">
+          <canvas class="home-ambient__particles" aria-hidden="true"></canvas>
+          <div class="home-ambient__spotlight"></div>
+        </div>
+        <!-- Hero -->
+        <section class="home-hero">
+          <div class="home-hero__row">
+            <h1
+              class="home-hero__headline"
+              aria-label="Designed with intention, felt without effort."
+            >
+              <span class="latin home-hero__headline-line">Designed with</span>
+              <span class="latin home-hero__headline-line">intention, felt</span>
+              <span class="home-hero__headline-italic home-hero__headline-line">without effort.</span>
+            </h1>
+            <div class="home-hero__aside">
+              <p class="home-hero__meta">
+                <span class="latin">PORTFOLIO — 2018 / 2026</span>
+              </p>
+              <p class="home-hero__supporting">
+                专注于全流程设计，包括产品设计、UI 视觉设计、品牌系统构建、定制字体和用户研究。拥有十年行业经验，注重品质打磨和项目执行。
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Category entries -->
+        <section class="cat-entries">
+          <div class="cat-entries__head">
+            <span>近期项目</span>
+            <span class="cat-entries__arrow" aria-hidden="true">
+              <img src="assets/home-cat-arrow.png" alt="" width="12" height="12" decoding="async" loading="lazy" />
+            </span>
+          </div>
+          <div class="cat-entries__rule"></div>
+          <ul class="cat-grid" role="list">
+            <li>
+              <a class="cat-card" href="#work-xiaoying" data-jump="work-xiaoying">
+                <div class="cat-card__head">
+                  <span class="cat-card__num latin">01</span>
+                  <span class="cat-card__mark" aria-hidden="true">
+                    <img src="assets/home-cat-01.png" alt="" width="24" height="24" decoding="async" loading="lazy" />
+                  </span>
+                </div>
+                <div class="cat-card__body">
+                  <span class="cat-card__title">剪小映</span>
+                  <span class="cat-card__role">设计负责人</span>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="cat-card" href="#work-jianying" data-jump="work-jianying">
+                <div class="cat-card__head">
+                  <span class="cat-card__num latin">02</span>
+                  <span class="cat-card__mark" aria-hidden="true">
+                    <img src="assets/home-cat-02.png" alt="" width="24" height="24" decoding="async" loading="lazy" />
+                  </span>
+                </div>
+                <div class="cat-card__body">
+                  <span class="cat-card__title">剪映</span>
+                  <span class="cat-card__role">主设</span>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="cat-card" href="#work-smart-edit" data-jump="work-smart-edit">
+                <div class="cat-card__head">
+                  <span class="cat-card__num latin">04</span>
+                  <span class="cat-card__mark" aria-hidden="true">
+                    <img src="assets/home-cat-04.png" alt="" width="24" height="24" decoding="async" loading="lazy" />
+                  </span>
+                </div>
+                <div class="cat-card__body">
+                  <span class="cat-card__title latin">Smart Edit</span>
+                  <span class="cat-card__role">设计负责人</span>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="cat-card" href="#work-capcut" data-jump="work-capcut">
+                <div class="cat-card__head">
+                  <span class="cat-card__num latin">03</span>
+                  <span class="cat-card__mark" aria-hidden="true">
+                    <img src="assets/home-cat-03.png" alt="" width="24" height="24" decoding="async" loading="lazy" />
+                  </span>
+                </div>
+                <div class="cat-card__body">
+                  <span class="cat-card__title latin">CapCut</span>
+                  <span class="cat-card__role">主设</span>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="cat-card" href="#work-dianjing" data-jump="work-dianjing">
+                <div class="cat-card__head">
+                  <span class="cat-card__num latin">05</span>
+                  <span class="cat-card__mark" aria-hidden="true">
+                    <img src="assets/home-cat-05.png" alt="" width="24" height="24" decoding="async" loading="lazy" />
+                  </span>
+                </div>
+                <div class="cat-card__body">
+                  <span class="cat-card__title">企鹅电竞</span>
+                  <span class="cat-card__role">主设</span>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="cat-card" href="#work-trovo" data-jump="work-trovo">
+                <div class="cat-card__head">
+                  <span class="cat-card__num latin">06</span>
+                  <span class="cat-card__mark" aria-hidden="true">
+                    <img src="assets/home-cat-06.png" alt="" width="24" height="24" decoding="async" loading="lazy" />
+                  </span>
+                </div>
+                <div class="cat-card__body">
+                  <span class="cat-card__title latin">Trovo</span>
+                  <span class="cat-card__role">主设</span>
+                </div>
+              </a>
+            </li>
+          </ul>
+          <div class="cat-entries__rule"></div>
+        </section>
+
+        <!-- About -->
+        <section class="about">
+          <div class="about__head">
+            <span>关于我</span>
+            <span class="about__since latin">DESIGNING SINCE 2015</span>
+          </div>
+          <div class="about__body">
+            <div class="about__col-left">
+              <figure class="about__portrait">
+                <img src="assets/portrait.png" alt="Uno Chen" loading="lazy" />
+              </figure>
+              <p class="about__quote latin">"Designed with intention, felt without effort."</p>
+            </div>
+            <div class="about__col-right">
+              <div class="about__block">
+                <h4 class="about__block-title latin">Work Experience</h4>
+                <div class="about__rule"></div>
+                <ul class="about__list">
+                  <li class="about__item">
+                    <span class="about__period latin">2022.6-至今</span>
+                    <span class="about__role">字节跳动 — 剪映 CapCut</span>
+                    <span class="about__title">资深产品设计</span>
+                  </li>
+                  <li class="about__item">
+                    <span class="about__period latin">2020.04-2022.6</span>
+                    <span class="about__role">腾讯 — IEG</span>
+                    <span class="about__title">视觉设计</span>
+                  </li>
+                  <li class="about__item">
+                    <span class="about__period latin">2015.07-2020.04</span>
+                    <span class="about__role">腾讯 — 企鹅电竞</span>
+                    <span class="about__title">视觉设计</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="about__block">
+                <h4 class="about__block-title latin">Education</h4>
+                <div class="about__rule"></div>
+                <ul class="about__list">
+                  <li class="about__item">
+                    <span class="about__period">本科</span>
+                    <span class="about__role">西南大学美术学院</span>
+                    <span class="about__title">视觉传达设计</span>
+                  </li>
+                  <li class="about__item">
+                    <span class="about__period">研究生</span>
+                    <span class="about__role">四川大学艺术学院</span>
+                    <span class="about__title">视觉传达艺术</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="contact" id="contact">
+          <div class="contact__card">
+            <div class="contact__ellipse" aria-hidden="true"></div>
+            <div class="contact__head">
+              <span class="contact__eyebrow latin">CONTACT — LET’S WORK TOGETHER</span>
+              <span class="contact__chip">
+                <span class="contact__chip-dot" aria-hidden="true"></span>
+                <span class="latin">At work</span>
+              </span>
+            </div>
+            <h2 class="contact__title latin">
+              <span>Let’s make</span>
+              <span>something</span>
+              <span>that flows.</span>
+            </h2>
+            <div class="contact__bottom">
+              <div class="contact__qr" aria-hidden="true">
+                <img
+                  class="contact__qr-img"
+                  src="assets/contact-qr.png"
+                  alt=""
+                  width="218"
+                  height="218"
+                  loading="lazy"
+                />
+              </div>
+              <div class="contact__methods">
+                <span class="contact__methods-title latin">Other contact methods</span>
+                <a class="contact__methods-line latin" href="tel:+8615708468632">
+                  +86 157 0846 8632
+                </a>
+                <a class="contact__methods-line latin" href="mailto:unoochen@gmail.com">
+                  unoochen@gmail.com
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Footer (full home) -->
+        <footer class="footer">
+          <div class="footer__rule"></div>
+          <div class="footer__row">
+            <span class="latin">© 2026 Uno’s Portfolio</span>
+            <a href="#top" class="footer__back latin" data-action="back-to-top">Back to top ↑</a>
+          </div>
+        </footer>
+      </section>
+
+      <!-- ===================================================
+           WORK · 剪小映
+           =================================================== -->
+      <section class="page page--work" data-page="work-xiaoying" id="page-work-xiaoying">
+        <div class="work-hero work-hero--split">
+          <div class="work-hero__left">
+            <header class="proj-header">
+              <div class="proj-header__logo">
+                <img src="assets/logo-xiaoying.png" alt="剪小映 Logo" />
+              </div>
+              <div class="proj-header__chips">
+                <span class="chip">设计负责人</span>
+                <span class="chip-sep">—</span>
+                <span class="chip-text">12个月</span>
+                <span class="chip-dot">·</span>
+                <span class="chip-text">3人</span>
+                <span class="chip-dot">·</span>
+                <span class="chip-text">3个产品阶段</span>
+              </div>
+            </header>
+            <div class="work-hero__intro">
+              <p class="work-hero__lead">
+                致力于用领先的 AI 图像理解和成片能力，成为用户无需操作的智能生活成片助手，提供一种全新的生活记录方式，打造专属于每个人的生活记录、分享、互动的影像社交产品。让记录更轻松，让回忆更精彩。
+              </p>
+              <a class="overview__doc-link" href="https://my.feishu.cn/wiki/QWO0wlBQTi84i0kSEZNcEeiqn0z" target="_blank" rel="noopener noreferrer">
+                <span>查看完整文档</span>
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+
+          <figure class="hero-video" data-video="xiaoying">
+            <video
+              class="hero-video__media"
+              src="assets/hero-xiaoying.mp4"
+              preload="metadata"
+              playsinline
+              webkit-playsinline
+            ></video>
+            <button class="hero-video__play" type="button" aria-label="播放视频">
+              <span aria-hidden="true">▶</span>
+            </button>
+          </figure>
+        </div>
+
+        <section class="process">
+          <header class="process__head">
+            <span class="process__stage">阶段一</span>
+            <h3 class="process__title">从功能到陪伴的"人感"体验</h3>
+            <div class="process__meta">
+              <span class="process__chip">MVP版本</span>
+              <span class="process__period latin">2025.03 — 2025.06</span>
+            </div>
+          </header>
+
+          <div class="process__row process__row--2col">
+            <article class="process__step">
+              <figure class="process__media">
+                <img src="assets/xy-s1-1.png" alt="品牌 IP 形象" loading="lazy" />
+              </figure>
+              <h4 class="process__step-title">品牌 IP 形象</h4>
+              <p class="process__step-copy">
+                结合剪小映名称特质、主打私密回忆场景与便捷智能的产品定位，以及 18-35 岁主流用户高度注重情绪价值的消费趋势，参考多款产品拟人 IP 的成功案例，打造专属 IP 形象，既能拉近用户距离、提供情绪价值，也能有效提升品牌记忆度。
+              </p>
+            </article>
+            <article class="process__step">
+              <figure class="process__media">
+                <img src="assets/xy-s1-2.png" alt="拟人化的交互体验" loading="lazy" />
+              </figure>
+              <h4 class="process__step-title">拟人化的交互体验</h4>
+              <p class="process__step-copy">
+                通过 IP 与用户交互行为结合，增强产品的"人感"表达，在框架中，会通过 IP 情绪和更有人味的文案，引导用户操作。
+              </p>
+            </article>
+          </div>
+
+          <div class="process__row process__row--full">
+            <div class="process__media-pair">
+              <figure class="process__media"><img src="assets/xy-s1-3.png" alt="" loading="lazy" /></figure>
+              <figure class="process__media"><img src="assets/xy-s1-4.png" alt="" loading="lazy" /></figure>
+            </div>
+            <h4 class="process__step-title">有温度 UI 细节</h4>
+            <p class="process__step-copy">
+              在视觉风格上，提取「剪小映」的造型，提取了 V 形、凹槽、大圆角、眼睛、造型饱满等特征，并对 IP 角色的圆角特征进行抽象提取，采用了统一的圆角梯度设计，不仅增强了整体界面的柔和感，也让产品更具亲和力。
+            </p>
+          </div>
+        </section>
+
+        <section class="quote-block">
+          <div class="quote-block__inner">
+            <span class="quote-block__mark latin" aria-hidden="true">“</span>
+            <blockquote class="quote-block__text">
+              MVP 版本后，通过对设计专家访谈，人群、行业的进一步调研，以及结合产品技术和战略规划，我们快速升级了产品定位，进行了体验升级与社交探索。
+            </blockquote>
+            <p class="quote-block__attr">快速响应，敏捷迭代</p>
+          </div>
+        </section>
+
+        <section class="process">
+          <header class="process__head">
+            <span class="process__stage">阶段二</span>
+            <h3 class="process__title">唤醒时光的"回忆"体验</h3>
+            <div class="process__meta">
+              <span class="process__chip">成长期</span>
+              <span class="process__period latin">2025.06 — 2025.11</span>
+            </div>
+          </header>
+
+          <div class="process__row process__row--2col">
+            <article class="process__step">
+              <figure class="process__media">
+                <img src="assets/xy-s2-1.png" alt="" loading="lazy" />
+              </figure>
+              <h4 class="process__step-title">"回忆"具象化</h4>
+              <p class="process__step-copy">
+                从"回忆"概念联想具象化的视觉元素，从情绪感受、具象物品、视觉风格，脑爆了多种具体的元素，在各种元素中最终选择了"手写字"、"胶卷"作为核心视觉表达。
+              </p>
+            </article>
+            <article class="process__step">
+              <figure class="process__media">
+                <img src="assets/xy-s2-2.png" alt="" loading="lazy" />
+              </figure>
+              <h4 class="process__step-title">"回忆"透传</h4>
+              <p class="process__step-copy">
+                通过 IP 与用户交互行为结合，增强产品的"人感"表达，在框架中，会通过 IP 情绪和更有人味的文案，引导用户操作。
+              </p>
+            </article>
+          </div>
+
+          <div class="process__row process__row--full">
+            <div class="process__media-pair">
+              <figure class="process__media"><img src="assets/xy-s2-3.png" alt="" loading="lazy" /></figure>
+              <figure class="process__media"><img src="assets/xy-s2-4.png" alt="" loading="lazy" /></figure>
+            </div>
+            <h4 class="process__step-title">"回忆"视觉升级</h4>
+            <p class="process__step-copy">
+              在视觉风格上，提取「剪小映」的造型，提取了 V 形、凹槽、大圆角、眼睛、造型饱满等特征，并对 IP 角色的圆角特征进行抽象提取，采用了统一的圆角梯度设计，不仅增强了整体界面的柔和感，也让产品更具亲和力。
+            </p>
+          </div>
+        </section>
+
+        <section class="process">
+          <header class="process__head">
+            <span class="process__stage">阶段三</span>
+            <h3 class="process__title">生活方式助手</h3>
+            <div class="process__meta">
+              <span class="process__chip">成熟期</span>
+              <span class="process__period latin">2025.11 — 2026.03</span>
+            </div>
+          </header>
+
+          <div class="process__row process__row--2col">
+            <article class="process__step">
+              <figure class="process__media process__media--tall">
+                <img src="assets/xy-s3-1.png" alt="" loading="lazy" />
+              </figure>
+              <h4 class="process__step-title">强化小映价值点</h4>
+              <p class="process__step-copy">
+                优化首页结构框架与视觉布局，重构顶部 Tab 导航、规整 Skills 展示样式，清晰凸显服务价值并提升浏览效率与视觉观感。
+              </p>
+            </article>
+            <article class="process__step">
+              <figure class="process__media process__media--tall">
+                <img src="assets/xy-s3-2.png" alt="" loading="lazy" />
+              </figure>
+              <h4 class="process__step-title">稳固用户使用心智</h4>
+              <p class="process__step-copy">
+                建立从"推荐 Skill → 体验 Skill → 订阅 Skill → 再次唤醒"的体验闭环，通过专属定期推送，建立稳定的唤醒机制，培养用户使用习惯。
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="next-link">
+          <p class="next-link__hint">网站无法承载完整文章信息，如有兴趣请移步飞书文档查看</p>
+          <a class="next-link__cta" href="https://my.feishu.cn/wiki/QWO0wlBQTi84i0kSEZNcEeiqn0z" target="_blank" rel="noopener noreferrer">
+            <span class="next-link__label">完整项目文档</span>
+            <span class="next-link__circle" aria-hidden="true">
+              <span class="next-link__arrow">→</span>
+            </span>
+          </a>
+        </section>
+
+        <footer class="footer-mini">
+          <span class="latin">© 2026 Uno’s Portfolio</span>
+        </footer>
+      </section>
+
+      <!-- ===================================================
+           WORK · 剪映
+           =================================================== -->
+      <section class="page page--work" data-page="work-jianying" id="page-work-jianying">
+        <div class="work-hero work-hero--split">
+          <div class="work-hero__left">
+            <header class="proj-header">
+              <div class="proj-header__logo">
+                <img src="assets/logo-jianying.png" alt="剪映 Logo" />
+              </div>
+              <div class="proj-header__chips">
+                <span class="chip">主设</span>
+                <span class="chip-sep">—</span>
+                <span class="chip-text">6人</span>
+                <span class="chip-dot">·</span>
+                <span class="chip-text">4个产品方向</span>
+              </div>
+            </header>
+            <div class="work-hero__intro">
+              <p class="work-hero__lead">
+                AI 技术剪映自研的智能编导模型，能够给视频画面匹配出符合事实且有趣的文案，对于普通用户来说，可以大大降低使用日常素材整合成片的门槛，且成片内容可以有趣好玩，具有激发创作和分享的空间。
+              </p>
+              <a
+                class="overview__doc-link"
+                href="https://my.feishu.cn/wiki/QWO0wlBQTi84i0kSEZNcEeiqn0z?from=from_copylink"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span>查看完整文档</span>
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+
+          <figure class="hero-video" data-video="jianying">
+            <video
+              class="hero-video__media"
+              src="assets/hero-jianying.mp4"
+              preload="metadata"
+              playsinline
+              webkit-playsinline
+            ></video>
+            <button class="hero-video__play" type="button" aria-label="播放视频">
+              <span aria-hidden="true">▶</span>
+            </button>
+          </figure>
+        </div>
+
+        <section class="process process--jianying-ai">
+          <header class="process__head">
+            <h3 class="process__title">剪映 AI 成片的「起承转合」</h3>
+            <p class="process__eyebrow">App端 AI 能力</p>
+          </header>
+
+          <div class="process__row process__row--2col">
+            <article class="process__step">
+              <figure class="process__media">
+                <img src="assets/jy-s1-1.png" alt="" loading="lazy" />
+              </figure>
+              <h4 class="process__step-title">0-1 深度参与探索 AI 成片产品方案</h4>
+              <p class="process__step-copy">
+                基于目前剪映自研的模型能力，结合用户的高价值需求（一类是有一堆素材但没有时间/没有灵感不知如何成片，另一类则需要提升剪辑效率），在体验流程上体现 AI「聪明」的核心解决思路。
+              </p>
+            </article>
+            <article class="process__step">
+              <figure class="process__media">
+                <img src="assets/jy-s1-2.png" alt="" loading="lazy" />
+              </figure>
+              <h4 class="process__step-title">根据用户声音，主动验证设计</h4>
+              <p class="process__step-copy">
+                针对用户反馈的两类诉求，在设计上增加了多结果页，区分了结果与编辑的状态，且在编辑页丰富了文案、声音、画面等高频的编辑项，满足绝大多数的编辑诉求，同时开放了更多编辑的入口到多轨道编辑器，以便于更高阶的用户使用高级的编辑项。
+              </p>
+            </article>
+          </div>
+
+          <div class="process__row process__row--2col">
+            <article class="process__step">
+              <figure class="process__media">
+                <img src="assets/jy-s1-3.png" alt="" loading="lazy" />
+              </figure>
+              <h4 class="process__step-title">深入学习底层算法技术，挖掘设计发力点</h4>
+              <p class="process__step-copy">
+                在底层技术方面进行深入的学习，了解技术的能力范围，设计更清楚知道怎么把复杂技术变成简单直观的用户交互形式，也能更有效地和开发、算法团队交流，推动技术实现和产品需求达到平衡。
+              </p>
+            </article>
+            <article class="process__step">
+              <figure class="process__media">
+                <img src="assets/jy-s1-4.png" alt="" loading="lazy" />
+              </figure>
+              <h4 class="process__step-title">整合资源，统一框架，优化成片链路</h4>
+              <p class="process__step-copy">
+                基于 AI 剪视频的成功验证，把这种「简单」的交互体验，运用到了有类似算法能力的剪同款「大众脚本模板」、「营销成片」、多轨道内「AI 剪辑」，并统一框架，优化成片链路。
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="jianying-pro-band" aria-label="剪映专业版视觉升级">
+          <div class="jianying-pro-band__inner">
+            <header class="jianying-pro-band__intro">
+              <div class="jianying-pro-band__intro-top">
+                <h2 class="jianying-pro-band__title">剪映专业版视觉升级</h2>
+                <a
+                  class="overview__doc-link overview__doc-link--on-dark"
+                  href="https://my.feishu.cn/wiki/LOp2wtmO9iW4sckR2YQcKssFnTg?from=from_copylink"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>查看完整文档</span>
+                  <span aria-hidden="true">→</span>
+                </a>
+              </div>
+              <p class="jianying-pro-band__lead">
+                AI 技术剪映自研的智能编导模型，能够给视频画面匹配出符合事实且有趣的文案，对于普通用户来说，可以大大降低使用日常素材整合成片的门槛，且成片内容可以有趣好玩，具有激发创作和分享的空间。
+              </p>
+            </header>
+
+            <div class="jianying-pro-band__grid process__row process__row--2col">
+              <article class="process__step">
+                <figure class="process__media process__media--jianying-pro">
+                  <img src="assets/jy-s2-1.png" alt="" loading="lazy" />
+                </figure>
+                <h4 class="process__step-title process__step-title--on-dark">启动台升级</h4>
+                <p class="process__step-copy process__step-copy--on-dark">
+                  随着 AI 能力的逐步迭代，原本的启动台框架已无法承载更多功能，且视觉风格偏老旧，同时需要更直观、有效的突出 AI 能力。
+                </p>
+              </article>
+              <article class="process__step">
+                <figure class="process__media process__media--jianying-pro">
+                  <img src="assets/jy-s2-2.png" alt="" loading="lazy" />
+                </figure>
+                <h4 class="process__step-title process__step-title--on-dark">框架颜色分析 &amp; 优化</h4>
+                <p class="process__step-copy process__step-copy--on-dark">
+                  剪映 &amp; CapCut 专业版存在一些颜色相关的问题，这些问题会对用户的使用体验产生负面影响，会增加用户的认知负担，并降低他们的工作效率。因此，进行了深度的框架颜色层级调研及优化。
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="overview overview--jianying-web">
+          <h2 class="overview__title overview__title--jianying-web">剪映图片 Web-体验升级专项</h2>
+          <p class="overview__copy overview__copy--jianying-web">
+            上线图片设计独立 Web，通过强大的设计 Agent+低门槛编辑器，承接好剪映 PC 端内专业图片作者的主流图片物料设计需求，验证用户价值。同时，从用户研究、平台属性研究、国际化产品研究，三个维度做了基础研究，为后续的产品设计提供基础方向，另外，我们从核心链路用户旅程图、竞品分析、体验问题收集，三个方向分析我们目前需要改进的体验问题。
+          </p>
+        </section>
+
+        <section class="process process--jianying-web">
+          <div class="process__row process__row--2col">
+            <article class="process__step">
+              <figure class="process__media process__media--jianying-web">
+                <img src="assets/jy-s3-1.png" alt="" loading="lazy" />
+              </figure>
+              <h4 class="process__step-title">框架搭建</h4>
+              <p class="process__step-copy">
+                搭建专属图片设计独立网页，依托强大设计 Agent + 低门槛编辑器，承接剪映 PC 专业图文创作者的主流物料设计需求，落地用户价值验证；页面框架划分 Agent 对话、空白画板、内容素材三大创作入口，为用户提供多元开启创作的路径。
+              </p>
+            </article>
+            <article class="process__step">
+              <figure class="process__media process__media--jianying-web">
+                <img src="assets/jy-s3-2.png" alt="" loading="lazy" />
+              </figure>
+              <h4 class="process__step-title">延续基础操作</h4>
+              <p class="process__step-copy">
+                延续图片、文字、贴纸、形状、容器等可见即所得的基础图片编辑操作，同时增加 AI 作图的 Agent 形式提供更多创作的路径。
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <footer class="footer-mini">
+          <span class="latin">© 2026 Uno’s Portfolio</span>
+        </footer>
+      </section>
+
+      <!-- ===================================================
+           WORK · Smart Edit
+           =================================================== -->
+      <section class="page page--work" data-page="work-smart-edit" id="page-work-smart-edit">
+        <div class="work-hero work-hero--split">
+          <div class="work-hero__left">
+            <header class="proj-header">
+              <div class="proj-header__logo">
+                <img src="assets/logo-smart-edit.png" alt="Smart Edit Logo" />
+              </div>
+              <div class="proj-header__chips">
+                <span class="chip">设计负责人</span>
+                <span class="chip-sep">—</span>
+                <span class="chip-text">23年Q2-24年Q1</span>
+                <span class="chip-dot">·</span>
+                <span class="chip-text latin">5人</span>
+                <span class="chip-dot">·</span>
+                <span class="chip-text latin">2端</span>
+              </div>
+            </header>
+            <div class="work-hero__intro">
+              <p class="work-hero__lead">
+                Smart Edit 依托于大模型技术，用户能够凭借自然语言对话来进行视频、图片、文案等多种体裁的创作，并且支持内容的生成以及编辑修改。以小工具的形式在剪映 CapCut 推出。
+              </p>
+              <a class="overview__doc-link" href="#" rel="noopener">
+                <span>查看完整文档</span>
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+
+          <figure class="hero-video" data-video="smart-edit">
+            <video
+              class="hero-video__media"
+              src="assets/hero-smart-edit.mp4"
+              preload="metadata"
+              playsinline
+              webkit-playsinline
+            ></video>
+            <button class="hero-video__play" type="button" aria-label="播放视频">
+              <span aria-hidden="true">▶</span>
+            </button>
+          </figure>
+        </div>
+
+        <section class="process">
+          <header class="process__head">
+            <span class="process__stage">剪映 AI 能力</span>
+            <h3 class="process__title">GUI 与 CUI 的碰撞</h3>
+          </header>
+
+          <div class="process__row process__row--2col">
+            <article class="process__step">
+              <figure class="process__media">
+                <img src="assets/se-s1-1.png" alt="" loading="lazy" />
+              </figure>
+              <h4 class="process__step-title">CUI 正改变着数字产品设计</h4>
+              <p class="process__step-copy">
+                相对于传统的 GUI 在层级结构上信息量大、页面层级复杂、学习成本高，CUI 的矩阵结构上精准度高，学习成本低。随着任务复杂度的增加，CUI 整体的交互成本是处于一个比较稳定的状态：认知成本在跨过了初步的学习门槛之后不再增加，操作成本在处理更复杂的任务时表现为更多轮的对话，用户花费的时间和精力相比 GUI 来说会更少。
+              </p>
+            </article>
+            <article class="process__step">
+              <figure class="process__media">
+                <img src="assets/se-s1-2.png" alt="" loading="lazy" />
+              </figure>
+              <h4 class="process__step-title">对话交互是进步还是倒退？</h4>
+              <p class="process__step-copy">
+                LUI 本质仍是指令输入式交互，文字描述在简单场景下没有点击高效，复杂场景下具有指引模糊，prompt 记忆困难等问题，它的本质决定了其只能在特定场景（如搜索）下发挥作用，其余场景更多是对于 GUI 的补充，而非替代。
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="process">
+          <header class="process__head">
+            <span class="process__stage">剪映 AI 能力</span>
+            <h3 class="process__title">AI 产品的视觉表达</h3>
+          </header>
+
+          <div class="process__row process__row--2col">
+            <article class="process__step">
+              <figure class="process__media process__media--tall">
+                <img src="assets/se-s2-1.png" alt="" loading="lazy" />
+              </figure>
+              <h4 class="process__step-title">打造独特视觉基因</h4>
+              <p class="process__step-copy">
+                依据产品定位和产品理念，围绕"灵动"这一概念，推导出简洁直观、友好对话、灵动智能的设计原则，并在图形、色彩、构成、质感及动画方面定义具有品牌特征的视觉表现。连接 AI 与人，打破使用隔阂，在体验到智能化功能的同时达到用户的愉悦感及提升产品的品质感。
+              </p>
+            </article>
+            <article class="process__step">
+              <figure class="process__media process__media--tall">
+                <img src="assets/se-s2-2.png" alt="" loading="lazy" />
+              </figure>
+              <h4 class="process__step-title">构建动效原则</h4>
+              <p class="process__step-copy">
+                在整体动效上，通过流动（灵动）、透叠、自然惯性去构建 SE 的动效设计要素，让在内容色块与对话页之间的切换，更流畅自然、灵动；文字出现用逐字打字的效果，强化与"人"对话的实时反馈感受；
+              </p>
+            </article>
+          </div>
+
+          <div class="process__row process__row--full">
+            <figure class="process__media process__media--wide">
+              <img src="assets/se-s3.png" alt="" loading="lazy" />
+            </figure>
+            <h4 class="process__step-title">双端视觉语言延展</h4>
+            <p class="process__step-copy">
+              根据前面定义的设计原则，在图形、色彩、质感、构成、动画上都保持了一致性，同时，根据 Web 端的特性，延续了统一的视觉语言。
+            </p>
+          </div>
+        </section>
+
+        <section class="next-link">
+          <p class="next-link__hint">网站无法承载完整文章信息，如有兴趣请移步飞书文档查看</p>
+          <a class="next-link__cta" href="#" rel="noopener">
+            <span class="next-link__label">完整项目文档</span>
+            <span class="next-link__circle" aria-hidden="true">
+              <span class="next-link__arrow">→</span>
+            </span>
+          </a>
+        </section>
+
+        <footer class="footer-mini">
+          <span class="latin">© 2026 Uno’s Portfolio</span>
+        </footer>
+      </section>
+
+      <!-- ===================================================
+           WORK · CapCut
+           =================================================== -->
+      <section class="page page--work" data-page="work-capcut" id="page-work-capcut">
+        <div class="work-hero work-hero--split">
+          <div class="work-hero__left">
+            <header class="proj-header proj-header--capcut-split">
+              <div class="proj-header__brand proj-header__brand--capcut">
+                <div class="capcut-app-icon" aria-hidden="true">
+                  <img src="assets/capcut-hero-icon-mark.svg" alt="" width="39" height="31" decoding="async" />
+                </div>
+                <div class="capcut-wordmark">
+                  <img src="assets/capcut-wordmark.svg" alt="CapCut" width="139" height="36" decoding="async" />
+                </div>
+              </div>
+              <div class="proj-header__chips">
+                <span class="chip">主设</span>
+                <span class="chip-sep">—</span>
+                <span class="chip-text">6人</span>
+                <span class="chip-dot">·</span>
+                <span class="chip-text">4个产品方向</span>
+              </div>
+            </header>
+            <div class="work-hero__intro">
+              <p class="work-hero__lead">
+                CapCut 在海外市场竞争逐渐增大，核心的产品能力和优秀的用户体验都缺一不可。针对线上已有的体验问题，我们完整的调研海外工具的设计风格，梳理线上存在的问题，助力产品有更好的体验。
+              </p>
+              <a
+                class="overview__doc-link"
+                href="https://my.feishu.cn/wiki/KJ1bwTwLVitlEPkHysBcfSWwnzb?from=from_copylink"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span>查看完整文档</span>
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+
+          <figure
+            class="hero-video hero-video--static hero-video--split-static hero-video--capcut-media"
+            aria-label="CapCut 主视觉"
+          >
+            <div class="hero-capcut__media">
+              <img
+                class="hero-capcut__img"
+                src="assets/hero-capcut.png"
+                alt=""
+                width="801"
+                height="451"
+                decoding="async"
+                fetchpriority="high"
+              />
+            </div>
+          </figure>
+        </div>
+
+        <section class="process process--capcut">
+          <header class="process__head">
+            <h3 class="process__title">体验优化专项</h3>
+            <p class="process__eyebrow latin">CapCut</p>
+          </header>
+          <div class="process__row process__row--2col">
+            <article class="process__step">
+              <figure class="process__media process__media--capcut-a">
+                <img src="assets/cc-s1-1.png" alt="" loading="lazy" />
+              </figure>
+              <h4 class="process__step-title">剪辑工具-海外设计风格研究</h4>
+              <p class="process__step-copy">
+                拆分设计风格里的色彩、文本、图形、交互反馈这四个维度，分别进行分析、研究，总结出剪辑工具设计更贴近海外设计风格的方法，并沉淀成文档。
+              </p>
+            </article>
+            <article class="process__step">
+              <figure class="process__media process__media--capcut-b">
+                <img src="assets/cc-s1-2.png" alt="" loading="lazy" />
+              </figure>
+              <h4 class="process__step-title">解决体验显性问题并落地</h4>
+              <p class="process__step-copy">
+                梳理线上体验问题，包括多语言适配问题，解决翻译不准确、文案过长缺少展示规则、日期书写顺序有误、交互反馈不足问题等。按照问题的显性程度与开发的工作量评估优先级，分批落地，
+              </p>
+            </article>
+          </div>
+
+          <div class="process__row process__row--full">
+            <figure class="process__media process__media--wide process__media--capcut-wide">
+              <img src="assets/cc-s2.png" alt="" loading="lazy" />
+            </figure>
+            <h4 class="process__step-title">推动全业务同步优化，并针对实验数据复盘</h4>
+            <p class="process__step-copy">
+              梳理表义有歧义的 icon，优化整体风格，主动协调剪同款、主框架业务方一起推动 icon、颜色、按钮等落地。在 icon 的实验中数据略显负向，针对编辑器 icon 做进一步拆解数据，得出优化方向。
+            </p>
+          </div>
+        </section>
+
+        <footer class="footer-mini">
+          <span class="latin">© 2026 Uno’s Portfolio</span>
+        </footer>
+      </section>
+
+      <!-- ===================================================
+           WORK · 企鹅电竞（split hero：左 Logo + chips + 查看完整文档，右叠层主视觉）
+           =================================================== -->
+      <section class="page page--work" data-page="work-dianjing" id="page-work-dianjing">
+        <div class="work-hero work-hero--split work-hero--dianjing">
+          <div class="work-hero__left">
+            <header class="proj-header proj-header--dianjing-split">
+              <div class="proj-header__logo proj-header__logo--dianjing">
+                <img src="assets/logo-dianjing-mark.png" alt="企鹅电竞" width="242" height="61" decoding="async" />
+              </div>
+              <div class="proj-header__chips">
+                <span class="chip">主设</span>
+                <span class="chip-sep">—</span>
+                <span class="chip-text">17年-22年</span>
+                <span class="chip-dot">·</span>
+                <span class="chip-text">5人</span>
+                <span class="chip-dot">·</span>
+                <span class="chip-text">3端</span>
+              </div>
+            </header>
+            <div class="work-hero__intro">
+              <a
+                class="overview__doc-link"
+                href="https://my.feishu.cn/wiki/TPbDwUbb4isFDgk0REncYXdWnwf?from=from_copylink"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span>查看完整文档</span>
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+
+          <figure
+            class="hero-video hero-video--static hero-video--split-static hero-video--dianjing-media"
+            aria-label="企鹅电竞主视觉"
+          >
+            <div class="hero-dianjing__media">
+              <img
+                class="hero-dianjing__layer hero-dianjing__layer--a"
+                src="assets/dianjing-hero-layer-a.png"
+                alt=""
+                width="801"
+                height="451"
+                decoding="async"
+                fetchpriority="high"
+              />
+              <img
+                class="hero-dianjing__layer hero-dianjing__layer--b"
+                src="assets/dianjing-hero-layer-b.png"
+                alt=""
+                width="801"
+                height="451"
+                decoding="async"
+              />
+            </div>
+          </figure>
+        </div>
+
+        <footer class="footer-mini">
+          <span class="latin">© 2026 Uno’s Portfolio</span>
+        </footer>
+      </section>
+
+      <!-- ===================================================
+           WORK · Trovo（split hero 同企鹅电竞：左品牌区 + 查看完整文档）
+           =================================================== -->
+      <section class="page page--work" data-page="work-trovo" id="page-work-trovo">
+        <div class="work-hero work-hero--split work-hero--trovo">
+          <div class="work-hero__left">
+            <header class="proj-header proj-header--trovo-split">
+              <div class="proj-header__brand proj-header__brand--trovo">
+                <div class="trovo-app-icon" aria-hidden="true">
+                  <img src="assets/trovo-app-icon.png" alt="" width="61" height="61" decoding="async" />
+                </div>
+                <div class="trovo-wordmark">
+                  <img src="assets/trovo-wordmark.png" alt="Trovo" width="136" height="37" decoding="async" />
+                </div>
+              </div>
+              <div class="proj-header__chips">
+                <span class="chip">主设</span>
+                <span class="chip-sep">—</span>
+                <span class="chip-text">21年-22年</span>
+                <span class="chip-dot">·</span>
+                <span class="chip-text">4人</span>
+                <span class="chip-dot">·</span>
+                <span class="chip-text">2端</span>
+              </div>
+            </header>
+            <div class="work-hero__intro">
+              <a
+                class="overview__doc-link"
+                href="https://my.feishu.cn/wiki/LXKNw3yZqiPqvgkytAhcZvWQnp5?from=from_copylink"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span>查看完整文档</span>
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+
+          <figure
+            class="hero-video hero-video--static hero-video--split-static hero-video--trovo-media"
+            aria-label="Trovo 主视觉"
+          >
+            <div class="hero-trovo__media">
+              <img
+                class="hero-trovo__layer hero-trovo__layer--a"
+                src="assets/trovo-hero-layer-a.png"
+                alt=""
+                width="801"
+                height="451"
+                decoding="async"
+                fetchpriority="high"
+              />
+              <img
+                class="hero-trovo__layer hero-trovo__layer--b"
+                src="assets/trovo-hero-layer-b.png"
+                alt=""
+                width="801"
+                height="451"
+                decoding="async"
+              />
+            </div>
+          </figure>
+        </div>
+
+        <footer class="footer-mini">
+          <span class="latin">© 2026 Uno’s Portfolio</span>
+        </footer>
+      </section>
+
+      <!-- ===================================================
+           ABILITY
+           =================================================== -->
+      <section class="page page--ability" data-page="ability" id="page-ability">
+        <section class="ability-3up">
+          <article class="ability-card">
+            <div class="ability-card__cover">
+              <img src="assets/ability-cover-1.png" alt="" loading="lazy" class="ability-card__cover-img" />
+            </div>
+            <h3 class="ability-card__title">持续精进</h3>
+            <p class="ability-card__copy">
+              持续熟悉 AI 技术的更新迭代，让设计更有理解与深度；学习 AI Coding 技术，助力更好的设计表达与提效。
+            </p>
+          </article>
+          <article class="ability-card">
+            <div class="ability-card__cover">
+              <img src="assets/ability-cover-2.png" alt="" loading="lazy" class="ability-card__cover-img" />
+            </div>
+            <h3 class="ability-card__title">经验反哺</h3>
+            <p class="ability-card__copy">
+              勤沉淀、乐分享，助力团队的整体设计水平的提升，同时提高对外影响力。
+            </p>
+          </article>
+          <article class="ability-card">
+            <div class="ability-card__cover">
+              <img src="assets/ability-cover-3.png" alt="" loading="lazy" class="ability-card__cover-img" />
+            </div>
+            <h3 class="ability-card__title">人才共建</h3>
+            <p class="ability-card__copy">
+              参与团队人才招聘流程，助力团队能力建设与梯队优化。培养新人，帮助其快速融入团队及熟悉业务。
+            </p>
+          </article>
+        </section>
+
+        <section class="ability-multi">
+          <div class="ability-multi__media">
+            <figure class="ability-multi__media-item">
+              <img src="assets/ab-mid-1.png" alt="" loading="lazy" />
+            </figure>
+            <figure class="ability-multi__media-item">
+              <img src="assets/ab-mid-2.png" alt="" loading="lazy" />
+            </figure>
+          </div>
+          <h3 class="ability-multi__title">多维协同</h3>
+          <p class="ability-multi__copy">把控项目的稳步推进，协同多方的资源调配。</p>
+        </section>
+
+        <footer class="footer-mini">
+          <span class="latin">© 2026 Uno’s Portfolio</span>
+        </footer>
+      </section>
+    </main>
+
+    <button id="backToTop" class="back-to-top" type="button" aria-label="回到顶部">
+      <span aria-hidden="true">↑</span>
+    </button>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>

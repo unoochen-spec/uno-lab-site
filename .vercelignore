@@ -1,0 +1,5 @@
+# Not linked from site; exceeds Vercel per-file limit
+assets/capcut-hero.pdf
+# Local backup after re-encode (original ~216MB)
+assets/hero-xiaoying.mp4.bak
+assets/.backup

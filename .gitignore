@@ -1,0 +1,7 @@
+.vercel
+.DS_Store
+node_modules
+assets/hero-xiaoying.mp4.bak
+# Local-only huge PDF (unused by site; breaks free-host file limits)
+assets/capcut-hero.pdf
+assets/.backup
