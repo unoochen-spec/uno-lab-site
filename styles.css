@@ -1459,30 +1459,34 @@ h1, h2, h3, h4, h5, p { margin: 0; }
   margin-top: var(--s-64);
 }
 #page-work-capcut .process__media--capcut-a {
-  aspect-ratio: auto;
-  height: 345px;
+  /* 按原图比例展示，避免被 cover 裁切 */
+  aspect-ratio: 1920 / 1073;
+  height: auto;
   background: #fff;
 }
 #page-work-capcut .process__media--capcut-a img {
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 #page-work-capcut .process__media--capcut-b {
-  aspect-ratio: auto;
-  height: 343px;
+  /* 与 s1-1 同类构图，保持完整展示 */
+  aspect-ratio: 1920 / 1070;
+  height: auto;
+  background: #fff;
 }
 #page-work-capcut .process__media--capcut-b img {
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 #page-work-capcut .process__media--capcut-wide {
-  aspect-ratio: auto;
-  height: 495px;
+  aspect-ratio: 1920 / 742;
+  height: auto;
   max-height: none;
+  background: #fff;
 }
 #page-work-capcut .process__media--capcut-wide img {
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 /* 设计稿：Process 段落后紧跟 Quote 时，两模块间距 96px（不与 .process 底 padding 叠加） */
 .process:has(+ .quote-block) {
@@ -2199,13 +2203,13 @@ h1, h2, h3, h4, h5, p { margin: 0; }
   #page-work-capcut .process__media--capcut-a,
   #page-work-capcut .process__media--capcut-b {
     height: auto;
-    min-height: 260px;
-    aspect-ratio: 16 / 10;
+    min-height: 0;
+    aspect-ratio: auto;
   }
   #page-work-capcut .process__media--capcut-wide {
     height: auto;
-    min-height: 280px;
-    aspect-ratio: 16 / 9;
+    min-height: 0;
+    aspect-ratio: auto;
   }
 
   .ability-3up { grid-template-columns: 1fr; gap: var(--s-32); }
@@ -2222,13 +2226,15 @@ h1, h2, h3, h4, h5, p { margin: 0; }
     --subnav-slot-w: 80px;
   }
   .topnav__inner {
-    padding: 0 16px;
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+    padding-top: max(8px, env(safe-area-inset-top));
+    padding-bottom: 8px;
     grid-template-columns: auto 1fr;
     grid-template-areas:
       "brand cta"
       "tabs tabs";
     height: auto;
-    padding-top: 8px; padding-bottom: 8px;
     gap: var(--s-8);
   }
   .brand { grid-area: brand; }
@@ -2248,7 +2254,10 @@ h1, h2, h3, h4, h5, p { margin: 0; }
   .subnav__inner {
     flex-wrap: nowrap;
     justify-content: flex-start;
-    padding: 12px var(--subnav-gutter);
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: max(var(--subnav-gutter), env(safe-area-inset-left));
+    padding-right: max(var(--subnav-gutter), env(safe-area-inset-right));
     gap: 16px;
     overflow-x: auto;
     overflow-y: hidden;
@@ -2409,7 +2418,102 @@ h1, h2, h3, h4, h5, p { margin: 0; }
   .ability-card__title { font-size: 24px; }
   .ability-multi__title { font-size: 26px; }
 
+  /* Work / Process：手机端减轻「挤在一起」——略增段落间距与正文行高 */
+  .process {
+    padding-top: var(--s-56);
+    padding-bottom: var(--s-56);
+  }
+  .process__row {
+    margin-top: var(--s-56);
+    gap: var(--s-40);
+  }
+  .process__head {
+    margin-bottom: var(--s-40);
+  }
+  .process__step-copy {
+    font-size: 15px;
+    line-height: 1.72;
+    max-width: none;
+  }
+  .process__step-title {
+    line-height: 1.35;
+  }
+  .process__media-pair {
+    gap: var(--s-24);
+  }
+  /* 桌面用 98px 留白，窄屏改为紧凑一段，避免一屏只有大块留白 */
+  #page-work-capcut .process--capcut,
+  #page-work-capcut .work-hero.work-hero--split,
+  #page-work-dianjing .work-hero.work-hero--split,
+  #page-work-trovo .work-hero.work-hero--split {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+
+  /* Home · 分类卡片：固定高度易显闷，改为自适应 + 略增内边距 */
+  .cat-card {
+    height: auto;
+    min-height: 148px;
+    padding-top: var(--s-32);
+    padding-bottom: var(--s-28);
+  }
+  .cat-entries {
+    padding-bottom: 88px;
+  }
+  .home-hero__headline {
+    gap: 14px;
+  }
+  .home-hero__supporting {
+    font-size: 14px;
+    line-height: 1.68;
+  }
+
+  /* 主内容左右随刘海/横条留出安全边距 */
+  .page > section,
+  .page > header,
+  .page > footer,
+  .page > figure,
+  .page > .work-hero {
+    padding-left: max(var(--gutter), env(safe-area-inset-left));
+    padding-right: max(var(--gutter), env(safe-area-inset-right));
+  }
+  .home-hero__row {
+    padding-left: max(var(--gutter), env(safe-area-inset-left));
+    padding-right: max(var(--gutter), env(safe-area-inset-right));
+  }
+
   .back-to-top { right: 16px; bottom: 16px; width: 42px; height: 42px; }
+}
+
+/* 极窄手机：近期项目改为单列，阅读路径更清晰 */
+@media (max-width: 480px) {
+  :root {
+    --gutter: 18px;
+    --subnav-gutter: 14px;
+  }
+  .cat-grid {
+    grid-template-columns: 1fr;
+  }
+  .cat-grid li .cat-card {
+    border-right: none;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .cat-grid li:last-child .cat-card {
+    border-bottom: none;
+  }
+  .about {
+    padding-top: var(--s-96);
+    padding-bottom: var(--s-96);
+  }
+  .overview__copy,
+  .overview__copy-en {
+    letter-spacing: 0.01em;
+  }
+  .next-link__cta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s-16);
+  }
 }
 
 /* =========================================
