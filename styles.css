@@ -101,6 +101,13 @@ h1, h2, h3, h4, h5, p { margin: 0; }
   border-bottom-color: var(--border-subtle);
   box-shadow: var(--elev-nav);
 }
+/* Browser-tuned: work page + scrolled + subnav hidden should not show a divider line */
+#topnav.is-work.is-scrolled.is-subnav-hidden {
+  border-width: 0.5px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0);
+  border-image: none;
+}
 .topnav__inner {
   max-width: var(--page-max);
   margin: 0 auto;
@@ -432,10 +439,10 @@ h1, h2, h3, h4, h5, p { margin: 0; }
   line-height: 1.05;
   max-width: min(900px, 100%);
   padding-left: 0;
-  letter-spacing: 0;
+  letter-spacing: -0.07em;
 }
 .home-hero__headline-italic {
-  font-family: var(--font-script);
+  font-family: "Playball", var(--font-script);
   font-style: normal;
   font-weight: 400;
   letter-spacing: 0;
