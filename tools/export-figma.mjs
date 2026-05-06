@@ -79,13 +79,14 @@ const MANIFEST = [
   { id: "246:57847", file: "home-cat-06.png", label: "首页类目 Trovo 角标" },
 
   // Ability（Cover 内图片层 + 底部双图）
-  { id: "234:3752", file: "ability-cover-1.png", label: "Ability 卡片 1 底图" },
-  { id: "234:3759", file: "ability-cover-2.png", label: "Ability 卡片 2 底图" },
+  { id: "379:60768", file: "ability-cover-1.png", label: "Ability 卡片 1 底图" },
+  { id: "379:60766", file: "ability-cover-2.png", label: "Ability 卡片 2 底图" },
+  { id: "379:60764", file: "ability-cover-3.png", label: "Ability 卡片 3 底图" },
   { id: "234:3774", file: "ab-mid-1.png", label: "Ability 中部左" },
-  { id: "234:3776", file: "ab-mid-2.png", label: "Ability 中部右" },
+  { id: "379:60909", file: "ab-mid-2.png", label: "Ability 中部右" },
 
   // Logos（导出组合 Frame）
-  { id: "234:2913", file: "logo-xiaoying.png", label: "剪小映 Logo" },
+  { id: "324:60053", file: "logo-xiaoying.png", label: "剪小映 Logo" },
   { id: "234:3156", file: "logo-jianying.png", label: "剪映 Logo" },
   { id: "234:3409", file: "logo-smart-edit.png", label: "Smart Edit Logo" },
   { id: "234:5439", file: "logo-capcut.png", label: "CapCut Logo" },

@@ -1183,9 +1183,23 @@ h1, h2, h3, h4, h5, p { margin: 0; }
   padding-top: 0;
   padding-bottom: 0;
 }
+/* 剪映：左栏内 header 去掉通用上下 padding，避免视觉上多一层空白 */
+#page-work-jianying .work-hero__left .proj-header {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+/* Smart Edit：左栏内 header 去掉通用上下 padding */
+#page-work-smart-edit .work-hero__left .proj-header {
+  padding-top: 0;
+  padding-bottom: 0;
+}
 /* CapCut（稿 234:5355）：左栏两组信息间距 60px */
 #page-work-capcut .work-hero__left {
   gap: 60px;
+}
+/* 剪映页：左侧信息块与右侧视频做垂直中线对齐 */
+#page-work-jianying .work-hero__left {
+  justify-content: center;
 }
 #page-work-capcut .work-hero.work-hero--split {
   padding-top: 98px;
@@ -1620,6 +1634,11 @@ h1, h2, h3, h4, h5, p { margin: 0; }
 }
 .process__media-pair .process__media { aspect-ratio: 628 / 321; }
 
+/* Work · 剪小映：阶段内双图间距按设计稿为 32px */
+#page-work-xiaoying .process__media-pair {
+  gap: var(--s-32);
+}
+
 .process__step-title {
   margin-top: var(--s-24);
   font-family: var(--font-cn);
@@ -1985,7 +2004,7 @@ h1, h2, h3, h4, h5, p { margin: 0; }
 }
 .ability-card__cover {
   width: 100%;
-  aspect-ratio: 411 / 340;
+  aspect-ratio: 411 / 231;
   border-radius: var(--r-lg);
   overflow: hidden;
   background: var(--bg-ink);
@@ -2020,16 +2039,18 @@ h1, h2, h3, h4, h5, p { margin: 0; }
 .ability-multi {
   padding-top: var(--s-64);
   padding-bottom: var(--s-48);
-}
-.ability-multi__media {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--s-24);
+  gap: var(--s-32);
+}
+.ability-multi__item {
+  display: flex;
+  flex-direction: column;
 }
 .ability-multi__media-item {
   margin: 0;
   width: 100%;
-  aspect-ratio: 628 / 251;
+  aspect-ratio: 628 / 353;
   border-radius: var(--r-lg);
   overflow: hidden;
   background: var(--bg-surface-alt);
@@ -2043,15 +2064,17 @@ h1, h2, h3, h4, h5, p { margin: 0; }
   object-fit: cover; object-position: center;
 }
 .ability-multi__title {
-  margin-top: var(--s-40);
-  font-size: 36px; font-weight: 600;
-  letter-spacing: -0.015em;
+  margin-top: var(--s-32);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 36px;
+  letter-spacing: -0.002em;
   color: var(--text-ink);
 }
 .ability-multi__copy {
   margin-top: var(--s-12);
-  font-size: 16px;
-  line-height: 1.7;
+  font-size: 14px;
+  line-height: 24px;
   color: var(--text-body);
 }
 
@@ -2213,7 +2236,7 @@ h1, h2, h3, h4, h5, p { margin: 0; }
   }
 
   .ability-3up { grid-template-columns: 1fr; gap: var(--s-32); }
-  .ability-multi__media { grid-template-columns: 1fr; gap: var(--s-16); }
+  .ability-multi { grid-template-columns: 1fr; gap: var(--s-32); }
   .ability-multi__media-item { aspect-ratio: 16 / 9; }
 }
 
@@ -2416,7 +2439,7 @@ h1, h2, h3, h4, h5, p { margin: 0; }
   .next-link__arrow { font-size: 22px; }
 
   .ability-card__title { font-size: 24px; }
-  .ability-multi__title { font-size: 26px; }
+  .ability-multi__title { font-size: 24px; }
 
   /* Work / Process：手机端减轻「挤在一起」——略增段落间距与正文行高 */
   .process {
