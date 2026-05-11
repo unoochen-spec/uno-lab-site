@@ -344,6 +344,7 @@ html:not(.app-layout) .topnav.is-scrolled.is-work:not(.is-subnav-hidden) {
   display: inline-block;
   white-space: nowrap;
   line-height: 1.2;
+  transform: translateY(-4px);
 }
 .subtab__title.latin {
   font-family: var(--font-sans);
@@ -1344,6 +1345,14 @@ html.app-layout .home-hero__row {
 /* Smart Edit ·「AI 产品的视觉表达」整宽图下的双栏延展（Figma 234:3507） */
 #page-work-smart-edit .smart-edit__extend-pair .process__media--smart-extend {
   aspect-ratio: 623 / 646;
+}
+
+/* 双栏延展图 →「双端视觉语言延展」标题：块间距 24px（不叠 step-title 默认 margin） */
+#page-work-smart-edit .smart-edit__extend-pair + .process__row--full {
+  margin-top: var(--s-24);
+}
+#page-work-smart-edit .smart-edit__extend-pair + .process__row--full > .process__step-title:first-child {
+  margin-top: 0;
 }
 
 #page-work-smart-edit .work-hero__left .proj-header {
