@@ -62,11 +62,11 @@
   function syncWorkTabAriaExpanded() {
     if (!WORK_TAB || !TOPNAV) return;
     const onWork = TOPNAV.classList.contains("is-work");
+    const hoverPeek = TOPNAV.classList.contains("is-subnav-hover");
     const expanded =
-      onWork &&
-      (TOPNAV.classList.contains("is-subnav-hover") ||
-        !TOPNAV.classList.contains("is-subnav-hidden") ||
-        isAppLayout());
+      hoverPeek ||
+      (onWork &&
+        (!TOPNAV.classList.contains("is-subnav-hidden") || isAppLayout()));
     WORK_TAB.setAttribute("aria-expanded", expanded ? "true" : "false");
   }
 
@@ -94,9 +94,26 @@
     const wasWork = TOPNAV.classList.contains("is-work");
     TOPNAV.classList.toggle("is-work", enteringWork);
     if (enteringWork) {
-      TOPNAV.classList.remove("is-subnav-hidden");
-      TOPNAV.classList.remove("is-subnav-hover");
-      scheduleSubnavAutoHide(SUBNAV_AUTO_HIDE_DELAY);
+      clearSubnavAutoHideTimer();
+      /* 桌面：进入 Work 后二级默认收起，仅 hover（或点击 Work 暂显）时出现；同 tab 下切换子项目不重置。
+         不在此清 is-subnav-hover：否则从其它 tab 点进 Work 时鼠标仍在 Work 上也会被当成未 hover。 */
+      if (!wasWork) {
+        clearSubnavHoverTimer();
+        if (isAppLayout()) {
+          TOPNAV.classList.remove("is-subnav-hidden");
+        } else {
+          TOPNAV.classList.add("is-subnav-hidden");
+          /* click 可能先于 mouseenter，路由已切到 Work 后补一层与 :hover 一致的状态 */
+          requestAnimationFrame(() => {
+            if (!TOPNAV.classList.contains("is-work")) return;
+            const overWork =
+              WORK_TAB &&
+              (WORK_TAB.matches(":hover") ||
+                (SUBNAV_EL && SUBNAV_EL.matches(":hover")));
+            if (overWork) TOPNAV.classList.add("is-subnav-hover");
+          });
+        }
+      }
     } else if (wasWork) {
       TOPNAV.classList.remove("is-subnav-hidden", "is-subnav-hover");
       clearSubnavAutoHideTimer();
@@ -220,7 +237,6 @@
   }
 
   function openWorkSubnavHover() {
-    if (!TOPNAV.classList.contains("is-work")) return;
     clearSubnavHoverTimer();
     clearSubnavAutoHideTimer();
     TOPNAV.classList.add("is-subnav-hover");

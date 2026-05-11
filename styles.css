@@ -45,9 +45,9 @@
   /* Figma Homepage frame uses 72px horizontal inset */
   --gutter: 72px;
   --nav-h: 88px;
-  /* Figma Work-xiaoying · Grid 7：单行约 64px；展开双行时由 max-height 兜住 */
-  --subnav-h: 64px;
-  --subnav-max-h: 120px;
+  /* 二级条固定高度 50px，tab 行在条内水平+垂直居中；双行时由 max-height 兜住 */
+  --subnav-h: 50px;
+  --subnav-max-h: 104px;
   --subnav-gutter: 80px;
   --subnav-slot-w: 90px;
 
@@ -90,25 +90,69 @@ h1, h2, h3, h4, h5, p { margin: 0; }
   position: fixed; top: 0; left: 0; right: 0;
   z-index: 100;
   overflow: visible;
-  background: rgba(250, 250, 247, 0.85);
-  backdrop-filter: saturate(180%) blur(14px);
-  -webkit-backdrop-filter: saturate(180%) blur(14px);
-  border-bottom: 1px solid transparent;
-  transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom: none;
+  box-shadow: none;
+  transition:
+    background 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    backdrop-filter 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    -webkit-backdrop-filter 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.35s ease;
 }
 .topnav.is-scrolled {
+  background: rgba(250, 250, 247, 0.94);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: none;
+  box-shadow: none;
+}
+
+/* Desktop：Work 悬停或二级常驻展开时，一级顶栏 + 二级共用一块磨砂（subnav 绝对定位不参与 header 高度，用 ::before 铺底） */
+html:not(.app-layout) .topnav {
+  isolation: isolate;
+}
+html:not(.app-layout) .topnav::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
   background: rgba(250, 250, 247, 0.96);
-  border-bottom-color: var(--border-subtle);
-  box-shadow: var(--elev-nav);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: none;
+  box-shadow: none;
+  transition:
+    height 0.36s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.24s ease,
+    box-shadow 0.35s ease,
+    backdrop-filter 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    -webkit-backdrop-filter 0.45s cubic-bezier(0.4, 0, 0.2, 1);
 }
-/* Browser-tuned: work page + scrolled + subnav hidden should not show a divider line */
-#topnav.is-work.is-scrolled.is-subnav-hidden {
-  border-width: 0.5px;
-  border-style: solid;
-  border-color: rgba(0, 0, 0, 0);
-  border-image: none;
+html:not(.app-layout) .topnav.is-subnav-hover::before,
+html:not(.app-layout) .topnav.is-work:not(.is-subnav-hidden)::before {
+  height: calc(var(--nav-h) + var(--subnav-h));
+  opacity: 1;
+  box-shadow: none;
 }
+/* 避免与顶栏 is-scrolled 叠两层磨砂；整块由 ::before 承担 */
+html:not(.app-layout) .topnav.is-scrolled.is-subnav-hover,
+html:not(.app-layout) .topnav.is-scrolled.is-work:not(.is-subnav-hidden) {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
 .topnav__inner {
+  position: relative;
+  z-index: 1;
   max-width: var(--page-max);
   margin: 0 auto;
   height: var(--nav-h);
@@ -192,8 +236,8 @@ h1, h2, h3, h4, h5, p { margin: 0; }
 .tab--work.is-active .tab__arrow {
   opacity: 0.7;
 }
-/* 二级栏展开：悬停 Work / 在 subnav 上，或与 scroll-hide 无关的可见态 */
-.topnav.is-work.is-subnav-hover .tab--work .tab__arrow,
+/* 二级栏展开：悬停 Work（任意路由）/ Work 且未 scroll-hide */
+.topnav.is-subnav-hover .tab--work .tab__arrow,
 .topnav.is-work:not(.is-subnav-hidden) .tab--work .tab__arrow {
   transform: rotate(180deg);
   opacity: 0.85;
@@ -216,11 +260,8 @@ h1, h2, h3, h4, h5, p { margin: 0; }
 .nav-cta:hover .nav-cta__arrow { transform: translate(2px, -1px); }
 
 /* =========================================
-   Sub navigation (Work — Figma 234:2829 Grid 7)
-   - 叠在顶栏下方、覆盖主内容，不改变 main 纵向占位
-   - 居中 flex、gap 40、py 12 / px 80
-   - 选中：描边胶囊 border-strong + rounded-full、14px Medium（与未选同槽宽与 padding，避免切换跳动）
-   - 未选：14px Regular、min-width 槽宽；hover 浅色底 + 弱描边
+   Sub navigation (Work — Grid 7)
+   - 叠在顶栏下方；磨砂由 .topnav::before 一体承载，无整条底部分割线（桌面）
    ========================================= */
 .subnav {
   position: absolute;
@@ -230,47 +271,44 @@ h1, h2, h3, h4, h5, p { margin: 0; }
   z-index: 2;
   max-height: 0;
   overflow: hidden;
-  background: rgba(250, 250, 247, 0.96);
-  backdrop-filter: saturate(180%) blur(14px);
-  -webkit-backdrop-filter: saturate(180%) blur(14px);
-  border-bottom: 0.5px solid transparent;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom: none;
   box-shadow: none;
   opacity: 1;
   transition: max-height 0.36s cubic-bezier(0.4, 0, 0.2, 1),
-              border-color 0.28s ease,
               opacity 0.22s ease;
 }
-.topnav.is-work .subnav {
+/* 展开：非 Work 页悬停 Work 也可预览；Work 页未 scroll-hide 时常驻 */
+.topnav.is-subnav-hover .subnav,
+.topnav.is-work:not(.is-subnav-hidden) .subnav {
   max-height: var(--subnav-max-h);
-  border-bottom-color: var(--border-subtle);
-  box-shadow: none;
-}
-/* 隐藏（自动隐藏 / 滚动隐藏），悬停 Work 时由 .is-subnav-hover 覆盖 */
-.topnav.is-work.is-subnav-hidden:not(.is-subnav-hover) .subnav {
-  max-height: 0;
-  border-bottom-color: transparent;
-  opacity: 0;
-  pointer-events: none;
-  box-shadow: none;
-}
-.topnav.is-work.is-subnav-hover .subnav {
-  max-height: var(--subnav-max-h);
-  border-bottom-color: var(--border-subtle);
   opacity: 1;
   pointer-events: auto;
+  box-shadow: none;
+}
+/* Work 路由 + scroll-hide 且未悬停 Work/subnav 时收起 */
+.topnav.is-work.is-subnav-hidden:not(.is-subnav-hover) .subnav {
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
   box-shadow: none;
 }
 
 .subnav__inner {
   max-width: var(--page-max);
   margin: 0 auto;
-  padding: 12px var(--subnav-gutter);
+  box-sizing: border-box;
+  height: var(--subnav-h);
+  min-height: var(--subnav-h);
+  padding: 0 var(--subnav-gutter);
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
+  text-align: center;
   gap: 40px;
-  box-sizing: border-box;
   overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
@@ -305,6 +343,7 @@ h1, h2, h3, h4, h5, p { margin: 0; }
 .subtab__title {
   display: inline-block;
   white-space: nowrap;
+  line-height: 1.2;
 }
 .subtab__title.latin {
   font-family: var(--font-sans);
@@ -312,26 +351,27 @@ h1, h2, h3, h4, h5, p { margin: 0; }
 
 .subtab:hover:not(.is-active) {
   color: var(--text-ink);
-  background: rgba(255, 255, 255, 0.78);
-  border-color: rgba(26, 26, 24, 0.1);
+  background: transparent;
+  border-color: transparent;
   box-shadow: none;
 }
 
+/* 选中态：Figma Grid 7 — 品牌色文字 + Medium（非深色描边胶囊） */
 .subtab.is-active {
   font-weight: 500;
-  color: var(--text-ink);
-  border-color: var(--border-strong);
+  color: var(--accent);
+  border-color: transparent;
   background: transparent;
   box-shadow: none;
 }
 .subtab.is-active:hover {
-  color: var(--text-ink);
-  border-color: var(--border-strong);
-  background: rgba(255, 255, 255, 0.88);
+  color: var(--accent);
+  border-color: transparent;
+  background: transparent;
   box-shadow: none;
 }
 .subtab:focus-visible {
-  outline: 2px solid var(--text-ink);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
@@ -395,10 +435,14 @@ html.app-layout .topnav.is-work.is-subnav-hidden .subnav {
   pointer-events: auto;
 }
 html.app-layout .subnav__inner {
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   gap: var(--s-12);
-  padding-left: max(var(--subnav-gutter), env(safe-area-inset-left));
-  padding-right: max(var(--subnav-gutter), env(safe-area-inset-right));
+  height: var(--subnav-h);
+  min-height: var(--subnav-h);
+  padding: 0 max(var(--subnav-gutter), env(safe-area-inset-right)) 0
+    max(var(--subnav-gutter), env(safe-area-inset-left));
 }
 html.app-layout .subnav__inner .subtab {
   min-width: 72px;
@@ -1297,6 +1341,11 @@ html.app-layout .home-hero__row {
   padding-bottom: 0;
 }
 /* Smart Edit：左栏内 header 去掉通用上下 padding */
+/* Smart Edit ·「AI 产品的视觉表达」整宽图下的双栏延展（Figma 234:3507） */
+#page-work-smart-edit .smart-edit__extend-pair .process__media--smart-extend {
+  aspect-ratio: 623 / 646;
+}
+
 #page-work-smart-edit .work-hero__left .proj-header {
   padding-top: 0;
   padding-bottom: 0;
@@ -2229,7 +2278,8 @@ html.app-layout .home-hero__row {
   .nav-cta { padding: 8px 14px; font-size: 13px; }
   .subnav__inner {
     flex-wrap: nowrap;
-    justify-content: flex-start;
+    justify-content: center;
+    align-items: center;
     gap: 24px;
     overflow-x: auto;
     overflow-y: hidden;
@@ -2333,7 +2383,7 @@ html.app-layout .home-hero__row {
 @media (max-width: 720px) {
   :root {
     --nav-h: 64px;
-    --subnav-h: 64px;
+    --subnav-h: 50px;
     --gutter: 16px;
     --subnav-gutter: 16px;
     --subnav-slot-w: 80px;
@@ -2366,9 +2416,12 @@ html.app-layout .home-hero__row {
 
   .subnav__inner {
     flex-wrap: nowrap;
-    justify-content: flex-start;
-    padding-top: 12px;
-    padding-bottom: 12px;
+    justify-content: center;
+    align-items: center;
+    height: var(--subnav-h);
+    min-height: var(--subnav-h);
+    padding-top: 0;
+    padding-bottom: 0;
     padding-left: max(var(--subnav-gutter), env(safe-area-inset-left));
     padding-right: max(var(--subnav-gutter), env(safe-area-inset-right));
     gap: 16px;
@@ -2707,7 +2760,7 @@ html.app-layout {
   --app-space-5: 32px;
   --app-space-6: 48px;
 }
-html.app-layout .topnav {
+html.app-layout .topnav.is-scrolled {
   backdrop-filter: saturate(160%) blur(10px);
   -webkit-backdrop-filter: saturate(160%) blur(10px);
 }
@@ -2761,10 +2814,21 @@ html.app-layout .nav-cta {
   display: none;
 }
 
-/* Keep work subnav always reachable in app mode */
+/* App：顶栏与二级同列文档流，悬停 Work / Work 且二级可见时整块磨砂（无底部分割线） */
+html.app-layout .topnav.is-subnav-hover,
+html.app-layout .topnav.is-work:not(.is-subnav-hidden) {
+  background: rgba(250, 250, 247, 0.94);
+  backdrop-filter: saturate(160%) blur(10px);
+  -webkit-backdrop-filter: saturate(160%) blur(10px);
+  border-bottom-color: transparent;
+  box-shadow: none;
+}
+
+/* App：Work 路由常驻二级栏；非 Work 时悬停 Work 也可展开预览 */
 html.app-layout .topnav.is-work .subnav,
 html.app-layout .topnav.is-work.is-subnav-hidden .subnav,
-html.app-layout .topnav.is-work.is-subnav-hover .subnav {
+html.app-layout .topnav.is-work.is-subnav-hover .subnav,
+html.app-layout .topnav.is-subnav-hover:not(.is-work) .subnav {
   display: block;
   max-height: none;
   opacity: 1;
@@ -2785,17 +2849,18 @@ html.app-layout .subnav {
   opacity: 1;
   pointer-events: auto;
 }
-html.app-layout .topnav:not(.is-work) .subnav {
+html.app-layout .topnav:not(.is-work):not(.is-subnav-hover) .subnav {
   display: none;
 }
 html.app-layout .subnav__inner {
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   gap: 10px;
-  padding-top: 8px;
-  padding-bottom: 10px;
-  padding-left: max(16px, env(safe-area-inset-left));
-  padding-right: max(16px, env(safe-area-inset-right));
-  border-top: 1px solid var(--border-subtle);
+  height: var(--subnav-h);
+  min-height: var(--subnav-h);
+  padding: 0 max(16px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left));
+  border-top: none;
 }
 html.app-layout .subnav__inner .subtab {
   min-width: auto;
@@ -2808,16 +2873,22 @@ html.app-layout .subnav__inner .subtab {
   color: var(--text-body);
 }
 html.app-layout .subnav__inner .subtab.is-active {
-  background: var(--bg-ink);
-  border-color: var(--bg-ink);
-  color: var(--text-on-ink);
+  background: var(--accent-soft);
+  border-color: rgba(232, 93, 60, 0.35);
+  color: var(--accent);
 }
 html.app-layout .subnav__inner .subtab.is-active .subtab__title {
-  color: var(--text-on-ink);
+  color: var(--accent);
+}
+html.app-layout .subnav__inner .subtab.is-active:hover {
+  background: transparent;
+  border-color: rgba(232, 93, 60, 0.35);
+  color: var(--accent);
 }
 html.app-layout .subnav__inner .subtab:hover:not(.is-active) {
-  border-color: rgba(14, 14, 12, 0.2);
-  background: #fff;
+  border-color: rgba(14, 14, 12, 0.12);
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--text-ink);
 }
 
 html.app-layout .main {

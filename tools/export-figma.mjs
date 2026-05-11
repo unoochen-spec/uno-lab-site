@@ -119,6 +119,8 @@ const MANIFEST = [
   { id: "234:3486", file: "se-s2-1.png", label: "SE 视觉基因 左" },
   { id: "234:3495", file: "se-s2-2.png", label: "SE 动效 右" },
   { id: "234:3502", file: "se-s3.png", label: "SE 双端延展（整宽）" },
+  { id: "234:3509", file: "se-s4-1.png", label: "SE 双端延展 左（整宽下双图）" },
+  { id: "234:3511", file: "se-s4-2.png", label: "SE 双端延展 右（整宽下双图）" },
 
   // Work · CapCut
   { id: "234:5485", file: "cc-s1-1.png", label: "CapCut 左" },
