@@ -170,6 +170,35 @@ h1, h2, h3, h4, h5, p { margin: 0; }
 }
 .tab.is-active .tab__dot { opacity: 1; }
 
+/* Work tab: label + chevron; chevron flips when subnav is open (hover / 展开) */
+.tab--work .tab__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.tab__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: currentColor;
+  opacity: 0.55;
+  transition: transform 0.24s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+}
+.tab--work:hover .tab__arrow,
+.tab--work:focus-visible .tab__arrow {
+  opacity: 0.85;
+}
+.tab--work.is-active .tab__arrow {
+  opacity: 0.7;
+}
+/* 二级栏展开：悬停 Work / 在 subnav 上，或与 scroll-hide 无关的可见态 */
+.topnav.is-work.is-subnav-hover .tab--work .tab__arrow,
+.topnav.is-work:not(.is-subnav-hidden) .tab--work .tab__arrow {
+  transform: rotate(180deg);
+  opacity: 0.85;
+}
+
 .nav-cta {
   justify-self: end;
   display: inline-flex; align-items: center; gap: var(--s-12);
@@ -313,6 +342,78 @@ h1, h2, h3, h4, h5, p { margin: 0; }
   padding-top: var(--nav-h);
   min-height: 100vh;
   background: var(--bg-canvas);
+}
+
+/* =========================================
+   APP layout mode (in-app webview / mobile app open)
+   - 自动由 app.js 添加 html.app-layout / body.app-layout
+   - 独立于桌面布局，减轻拥挤与遮挡
+   ========================================= */
+html.app-layout .topnav {
+  position: sticky;
+  top: 0;
+}
+html.app-layout .main {
+  padding-top: 0;
+}
+html.app-layout .topnav__inner {
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "brand tabs";
+  gap: var(--s-12);
+  min-height: 56px;
+  height: auto;
+  padding-top: max(8px, env(safe-area-inset-top));
+  padding-bottom: 8px;
+}
+html.app-layout .brand {
+  grid-area: brand;
+}
+html.app-layout .brand__wordmark {
+  font-size: 14px;
+  line-height: 20px;
+}
+html.app-layout .tabs {
+  grid-area: tabs;
+  justify-self: end;
+  gap: var(--s-12);
+}
+html.app-layout .tab {
+  font-size: 13px;
+}
+html.app-layout .nav-cta {
+  display: none;
+}
+html.app-layout .topnav.is-work .subnav {
+  max-height: var(--subnav-max-h);
+  opacity: 1;
+  pointer-events: auto;
+}
+html.app-layout .topnav.is-work.is-subnav-hidden .subnav {
+  max-height: var(--subnav-max-h);
+  opacity: 1;
+  pointer-events: auto;
+}
+html.app-layout .subnav__inner {
+  justify-content: flex-start;
+  gap: var(--s-12);
+  padding-left: max(var(--subnav-gutter), env(safe-area-inset-left));
+  padding-right: max(var(--subnav-gutter), env(safe-area-inset-right));
+}
+html.app-layout .subnav__inner .subtab {
+  min-width: 72px;
+  height: 36px;
+  padding: 0 10px;
+  font-size: 13px;
+}
+html.app-layout .page > section,
+html.app-layout .page > header,
+html.app-layout .page > footer,
+html.app-layout .page > figure,
+html.app-layout .page > .work-hero,
+html.app-layout .home-hero__row {
+  padding-left: max(var(--gutter), env(safe-area-inset-left));
+  padding-right: max(var(--gutter), env(safe-area-inset-right));
 }
 
 
@@ -1734,12 +1835,6 @@ h1, h2, h3, h4, h5, p { margin: 0; }
   gap: 60px;
   align-items: flex-start;
 }
-#page-work-jianying .jianying-pro-band__intro-top {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  align-items: flex-start;
-}
 #page-work-jianying .jianying-pro-band__title {
   margin: 0;
   font-family: var(--font-cn), var(--font-sans);
@@ -1758,18 +1853,6 @@ h1, h2, h3, h4, h5, p { margin: 0; }
   line-height: 22px;
   color: var(--text-on-ink);
 }
-.overview__doc-link--on-dark {
-  margin-top: 0;
-  border-color: var(--border-subtle);
-  color: var(--text-on-ink);
-}
-.overview__doc-link--on-dark:hover {
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--text-on-ink);
-  border-color: rgba(245, 244, 239, 0.42);
-  transform: translateY(-1px);
-}
-
 #page-work-jianying .jianying-pro-band__grid.process__row {
   margin-top: 96px;
 }
@@ -2606,4 +2689,370 @@ body.js-reveal .ability-multi__media-item.is-revealed {
     opacity: 1;
     transform: none;
   }
+}
+
+/* =====================================================
+   APP Layout V2 (final overrides, loaded last)
+   - only active when html/body has .app-layout (set by app.js)
+   - does NOT affect desktop web
+   ===================================================== */
+html.app-layout {
+  --gutter: 16px;
+  --subnav-gutter: 16px;
+  /* App rhythm grid: 4px baseline */
+  --app-space-1: 8px;
+  --app-space-2: 12px;
+  --app-space-3: 16px;
+  --app-space-4: 24px;
+  --app-space-5: 32px;
+  --app-space-6: 48px;
+}
+html.app-layout .topnav {
+  backdrop-filter: saturate(160%) blur(10px);
+  -webkit-backdrop-filter: saturate(160%) blur(10px);
+}
+html.app-layout .topnav__inner {
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "brand"
+    "tabs";
+  align-items: start;
+  gap: 8px;
+  min-height: 72px;
+  height: auto;
+  padding-left: max(16px, env(safe-area-inset-left));
+  padding-right: max(16px, env(safe-area-inset-right));
+  padding-top: max(8px, env(safe-area-inset-top));
+  padding-bottom: 8px;
+}
+html.app-layout .brand {
+  grid-area: brand;
+  gap: 8px;
+}
+html.app-layout .brand__mark {
+  width: 24px;
+  height: 24px;
+}
+html.app-layout .brand__wordmark {
+  font-size: 13px;
+  line-height: 18px;
+}
+html.app-layout .tabs {
+  grid-area: tabs;
+  justify-self: start;
+  width: 100%;
+  justify-content: flex-start;
+  gap: 14px;
+  padding-left: 2px;
+}
+html.app-layout .tab {
+  font-size: 12px;
+  line-height: 18px;
+  gap: 4px;
+}
+html.app-layout .tab--work .tab__label {
+  gap: 3px;
+}
+html.app-layout .tab__arrow svg {
+  width: 9px;
+  height: 9px;
+}
+html.app-layout .nav-cta {
+  display: none;
+}
+
+/* Keep work subnav always reachable in app mode */
+html.app-layout .topnav.is-work .subnav,
+html.app-layout .topnav.is-work.is-subnav-hidden .subnav,
+html.app-layout .topnav.is-work.is-subnav-hover .subnav {
+  display: block;
+  max-height: none;
+  opacity: 1;
+  pointer-events: auto;
+}
+html.app-layout .subnav {
+  position: static;
+  left: auto;
+  right: auto;
+  top: auto;
+  max-height: none;
+  overflow: visible;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom: none;
+  box-shadow: none;
+  opacity: 1;
+  pointer-events: auto;
+}
+html.app-layout .topnav:not(.is-work) .subnav {
+  display: none;
+}
+html.app-layout .subnav__inner {
+  justify-content: flex-start;
+  gap: 10px;
+  padding-top: 8px;
+  padding-bottom: 10px;
+  padding-left: max(16px, env(safe-area-inset-left));
+  padding-right: max(16px, env(safe-area-inset-right));
+  border-top: 1px solid var(--border-subtle);
+}
+html.app-layout .subnav__inner .subtab {
+  min-width: auto;
+  height: 32px;
+  padding: 0 12px;
+  font-size: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(14, 14, 12, 0.12);
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--text-body);
+}
+html.app-layout .subnav__inner .subtab.is-active {
+  background: var(--bg-ink);
+  border-color: var(--bg-ink);
+  color: var(--text-on-ink);
+}
+html.app-layout .subnav__inner .subtab.is-active .subtab__title {
+  color: var(--text-on-ink);
+}
+html.app-layout .subnav__inner .subtab:hover:not(.is-active) {
+  border-color: rgba(14, 14, 12, 0.2);
+  background: #fff;
+}
+
+html.app-layout .main {
+  padding-top: 0;
+}
+html.app-layout .page > section,
+html.app-layout .page > header,
+html.app-layout .page > footer,
+html.app-layout .page > figure,
+html.app-layout .page > .work-hero,
+html.app-layout .home-hero__row {
+  padding-left: max(var(--gutter), env(safe-area-inset-left));
+  padding-right: max(var(--gutter), env(safe-area-inset-right));
+}
+
+/* Home rhythm */
+html.app-layout .home-hero {
+  padding-top: var(--app-space-6);
+  padding-bottom: var(--app-space-6);
+}
+html.app-layout .home-hero__row {
+  grid-template-columns: 1fr;
+  gap: var(--app-space-4);
+  align-items: start;
+}
+html.app-layout .home-hero__headline {
+  gap: var(--app-space-1);
+}
+html.app-layout .home-hero__headline > .latin.home-hero__headline-line {
+  font-size: clamp(42px, 12vw, 56px);
+  line-height: 1.04;
+}
+html.app-layout .home-hero__headline-italic {
+  font-size: clamp(44px, 11vw, 54px);
+  line-height: 1.02;
+}
+html.app-layout .home-hero__meta {
+  font-size: 10px;
+  line-height: 14px;
+}
+html.app-layout .home-hero__supporting {
+  font-size: 14px;
+  line-height: 24px;
+  padding-bottom: 0;
+}
+
+/* Project cards / home categories */
+html.app-layout .cat-entries {
+  padding-bottom: var(--app-space-6);
+}
+html.app-layout .cat-grid {
+  grid-template-columns: 1fr;
+}
+html.app-layout .cat-grid li .cat-card {
+  border-right: none;
+  border-bottom: 1px solid var(--border-subtle);
+}
+html.app-layout .cat-grid li:last-child .cat-card {
+  border-bottom: none;
+}
+html.app-layout .cat-card {
+  min-height: 132px;
+  height: auto;
+  padding: var(--app-space-4) var(--app-space-2) var(--app-space-3);
+}
+html.app-layout .cat-card__title {
+  font-size: 20px;
+}
+html.app-layout .cat-card__role {
+  font-size: 12px;
+  line-height: 18px;
+}
+
+/* About / Contact */
+html.app-layout .about {
+  padding-top: var(--app-space-6);
+  padding-bottom: var(--app-space-6);
+}
+html.app-layout .about__body {
+  grid-template-columns: 1fr;
+  gap: var(--app-space-5);
+}
+html.app-layout .about__col-left {
+  flex-direction: column;
+  gap: var(--app-space-3);
+}
+html.app-layout .about__portrait {
+  width: 100%;
+  max-width: 360px;
+}
+html.app-layout .contact {
+  padding: var(--app-space-4) 0;
+}
+html.app-layout .contact__card {
+  border-radius: 20px;
+  padding: var(--app-space-5) var(--app-space-3);
+  gap: var(--app-space-4);
+}
+html.app-layout .contact__title {
+  font-size: clamp(36px, 11vw, 48px);
+}
+html.app-layout .contact__bottom {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--app-space-3);
+}
+
+/* Work pages: card-like reading rhythm */
+html.app-layout .work-hero,
+html.app-layout .work-hero.work-hero--split {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--app-space-4);
+  padding-top: var(--app-space-5);
+  padding-bottom: var(--app-space-5);
+}
+html.app-layout .work-hero__left,
+html.app-layout .work-hero.work-hero--split .work-hero__left {
+  width: 100%;
+  max-width: none;
+  gap: var(--app-space-4);
+  justify-content: flex-start;
+}
+html.app-layout .work-hero__left .proj-header {
+  padding-top: 0;
+  padding-bottom: 0;
+  gap: var(--app-space-2);
+}
+html.app-layout .proj-header__logo,
+html.app-layout .proj-header__logo img {
+  height: 40px;
+}
+html.app-layout .work-hero > .hero-video {
+  width: 100%;
+  max-width: none;
+  flex: 1 1 auto;
+  border-radius: 14px;
+}
+html.app-layout .work-hero__lead,
+html.app-layout .overview__copy,
+html.app-layout .process__step-copy {
+  font-size: 14px;
+  line-height: 24px;
+}
+html.app-layout .overview {
+  grid-template-columns: 1fr;
+  gap: var(--app-space-4);
+  padding-top: var(--app-space-5);
+}
+html.app-layout .overview__title {
+  font-size: 24px;
+  line-height: 34px;
+}
+html.app-layout .process {
+  padding-top: var(--app-space-6);
+  padding-bottom: var(--app-space-6);
+}
+html.app-layout .process__head {
+  margin-bottom: var(--app-space-5);
+}
+html.app-layout .process__title {
+  font-size: 26px;
+  line-height: 36px;
+}
+html.app-layout .process__row,
+html.app-layout .process__row--2col {
+  grid-template-columns: 1fr;
+  margin-top: var(--app-space-5);
+  gap: var(--app-space-5);
+}
+html.app-layout .process__media-pair {
+  grid-template-columns: 1fr;
+  gap: var(--app-space-3);
+}
+html.app-layout .process__step-title {
+  font-size: 20px;
+  line-height: 30px;
+  margin-top: var(--app-space-4);
+}
+html.app-layout .quote-block__inner {
+  padding: var(--app-space-6) var(--gutter);
+  gap: var(--app-space-4);
+}
+html.app-layout .quote-block__text {
+  font-size: 19px;
+  line-height: 30px;
+}
+html.app-layout .next-link {
+  padding-top: var(--app-space-6);
+  padding-bottom: var(--app-space-6);
+}
+html.app-layout .next-link__cta {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--app-space-2);
+}
+html.app-layout .next-link__label {
+  font-size: clamp(28px, 9vw, 34px);
+  line-height: 1.12;
+}
+html.app-layout .next-link__circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 26px;
+}
+
+/* Ability page */
+html.app-layout .ability-3up {
+  grid-template-columns: 1fr;
+  gap: var(--app-space-5);
+}
+html.app-layout .ability-card__title {
+  margin-top: var(--app-space-4);
+  font-size: 22px;
+  line-height: 32px;
+}
+html.app-layout .ability-card__copy {
+  margin-top: var(--app-space-2);
+  font-size: 14px;
+  line-height: 24px;
+}
+html.app-layout .ability-multi {
+  grid-template-columns: 1fr;
+  gap: var(--app-space-5);
+}
+html.app-layout .ability-multi__media-item {
+  aspect-ratio: 16 / 9;
+}
+html.app-layout .ability-multi__title {
+  margin-top: var(--app-space-4);
+  font-size: 22px;
+  line-height: 32px;
+}
+html.app-layout .ability-multi__copy {
+  margin-top: var(--app-space-2);
+  font-size: 14px;
+  line-height: 24px;
 }

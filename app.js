@@ -13,6 +13,7 @@
   const SUBNAV_HOVER_GRACE = 180;
   let subnavHoverCloseTimer = null;
   let subnavAutoHideTimer = null;
+  const APP_LAYOUT_BREAKPOINT = 900;
 
   const TABS = Array.from(document.querySelectorAll(".tab"));
   const SUBTABS = Array.from(document.querySelectorAll(".subtab"));
@@ -35,6 +36,39 @@
     "xiaoying", "jianying", "smart-edit", "capcut", "dianjing", "trovo",
   ];
   const DEFAULT_WORK = "xiaoying";
+
+  function shouldUseAppLayout() {
+    const ua = navigator.userAgent || "";
+    const inAppWebView = /(MicroMessenger|QQ\/|Weibo|Feishu|Lark|DingTalk|DingDing|BytedanceWebview|Toutiao)/i.test(ua);
+    const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+    return window.innerWidth <= APP_LAYOUT_BREAKPOINT && (inAppWebView || coarsePointer);
+  }
+
+  function applyAppLayoutClass() {
+    const on = shouldUseAppLayout();
+    document.documentElement.classList.toggle("app-layout", on);
+    document.body.classList.toggle("app-layout", on);
+    if (on && TOPNAV.classList.contains("is-work")) {
+      TOPNAV.classList.remove("is-subnav-hidden", "is-subnav-hover");
+    }
+    syncWorkTabAriaExpanded();
+  }
+
+  function isAppLayout() {
+    return document.documentElement.classList.contains("app-layout");
+  }
+
+  /** Subnav 视为展开时同步 Work tab 的 aria-expanded（配合 chevron 状态） */
+  function syncWorkTabAriaExpanded() {
+    if (!WORK_TAB || !TOPNAV) return;
+    const onWork = TOPNAV.classList.contains("is-work");
+    const expanded =
+      onWork &&
+      (TOPNAV.classList.contains("is-subnav-hover") ||
+        !TOPNAV.classList.contains("is-subnav-hidden") ||
+        isAppLayout());
+    WORK_TAB.setAttribute("aria-expanded", expanded ? "true" : "false");
+  }
 
   // ---------- Routing ----------
   function parseHash() {
@@ -68,6 +102,7 @@
       clearSubnavAutoHideTimer();
       clearSubnavHoverTimer();
     }
+    syncWorkTabAriaExpanded();
   }
 
   function setActiveSubtab(project) {
@@ -143,6 +178,7 @@
   }
 
   // Initial render
+  applyAppLayoutClass();
   if (!location.hash) {
     history.replaceState(null, "", "#home");
   }
@@ -150,6 +186,8 @@
 
   // hashchange — handles back/forward and clicks on hash links
   window.addEventListener("hashchange", () => applyRoute({ scroll: "top" }));
+  window.addEventListener("resize", applyAppLayoutClass);
+  window.addEventListener("orientationchange", applyAppLayoutClass);
 
   // ---------- Work subnav: auto-hide + scroll-hide + hover-reveal ----------
   function clearSubnavAutoHideTimer() {
@@ -168,10 +206,16 @@
 
   function scheduleSubnavAutoHide(delay = SUBNAV_AUTO_HIDE_DELAY) {
     clearSubnavAutoHideTimer();
+    if (isAppLayout()) {
+      TOPNAV.classList.remove("is-subnav-hidden");
+      syncWorkTabAriaExpanded();
+      return;
+    }
     if (!TOPNAV.classList.contains("is-work")) return;
     subnavAutoHideTimer = window.setTimeout(() => {
       TOPNAV.classList.add("is-subnav-hidden");
       subnavAutoHideTimer = null;
+      syncWorkTabAriaExpanded();
     }, delay);
   }
 
@@ -180,6 +224,7 @@
     clearSubnavHoverTimer();
     clearSubnavAutoHideTimer();
     TOPNAV.classList.add("is-subnav-hover");
+    syncWorkTabAriaExpanded();
   }
 
   function scheduleCloseWorkSubnavHover(ev) {
@@ -192,6 +237,7 @@
     subnavHoverCloseTimer = window.setTimeout(() => {
       TOPNAV.classList.remove("is-subnav-hover");
       subnavHoverCloseTimer = null;
+      syncWorkTabAriaExpanded();
       // 鼠标离开后：若仍在 Work 路由，3s 后自动隐藏（除非已被 scroll-hide 隐藏）
       if (TOPNAV.classList.contains("is-work") &&
           !TOPNAV.classList.contains("is-subnav-hidden")) {
@@ -211,16 +257,23 @@
       clearSubnavHoverTimer();
       TOPNAV.classList.remove("is-subnav-hidden");
       scheduleSubnavAutoHide(SUBNAV_AUTO_HIDE_DELAY);
+      syncWorkTabAriaExpanded();
     });
   }
 
   function updateWorkSubnavScrollState() {
     if (!TOPNAV.classList.contains("is-work")) return;
+    if (isAppLayout()) {
+      TOPNAV.classList.remove("is-subnav-hidden");
+      syncWorkTabAriaExpanded();
+      return;
+    }
     const y = window.scrollY;
     if (y > SUBNAV_SCROLL_HIDE_Y) {
       TOPNAV.classList.add("is-subnav-hidden");
       clearSubnavAutoHideTimer();
     }
+    syncWorkTabAriaExpanded();
   }
 
   function onScroll() {

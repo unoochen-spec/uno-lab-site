@@ -108,8 +108,8 @@ const MANIFEST = [
   { id: "234:3217", file: "jy-s1-2.png", label: "剪映 Block1 右" },
   { id: "234:4322", file: "jy-s1-3.png", label: "剪映 Block2 左" },
   { id: "234:4331", file: "jy-s1-4.png", label: "剪映 Block2 右" },
-  { id: "234:3260", file: "jy-s2-1.png", label: "剪映 Gallery 左" },
-  { id: "234:3269", file: "jy-s2-2.png", label: "剪映 Gallery 右" },
+  { id: "234:3260", file: "jy-s2-1.png", label: "剪映专业版 Agent · 布局规则 配图" },
+  { id: "234:3269", file: "jy-s2-2.png", label: "剪映专业版 Agent · 场景梳理 配图" },
   { id: "234:3287", file: "jy-s3-1.png", label: "剪映 Web 左" },
   { id: "234:3296", file: "jy-s3-2.png", label: "剪映 Web 右" },
 
