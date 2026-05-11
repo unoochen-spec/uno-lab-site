@@ -2768,6 +2768,14 @@ html.app-layout {
   --app-space-4: 24px;
   --app-space-5: 32px;
   --app-space-6: 48px;
+  overflow-x: clip;
+}
+html.app-layout body {
+  overflow-x: clip;
+}
+html.app-layout .main,
+html.app-layout .page {
+  min-width: 0;
 }
 html.app-layout .topnav.is-scrolled {
   backdrop-filter: saturate(160%) blur(10px);
@@ -3102,6 +3110,35 @@ html.app-layout .next-link__circle {
   width: 52px;
   height: 52px;
   border-radius: 26px;
+}
+
+/* Process：窄屏避免固定 ratio + cover 裁切过长；全宽图随内容增高 */
+html.app-layout .process .process__media {
+  min-width: 0;
+}
+html.app-layout .process .process__media--wide {
+  aspect-ratio: auto;
+  height: auto;
+}
+html.app-layout .process .process__media--wide img,
+html.app-layout .process .process__media--tall img {
+  height: auto;
+  max-height: none;
+}
+html.app-layout .process .process__media img {
+  object-fit: contain;
+  object-position: top center;
+}
+/* Smart Edit · 双端延展双图：单列时按素材比例展示 */
+html.app-layout #page-work-smart-edit .smart-edit__extend-pair .process__media--smart-extend {
+  aspect-ratio: auto;
+  height: auto;
+}
+html.app-layout #page-work-smart-edit .smart-edit__extend-pair .process__media--smart-extend img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: top center;
 }
 
 /* Ability page */

@@ -37,11 +37,9 @@
   ];
   const DEFAULT_WORK = "xiaoying";
 
+  /** 视口 ≤900px 一律走 app-layout（与 styles 中 html.app-layout 一致），避免手机 Safari 等细指针设备仍套桌面顶栏/双栏 */
   function shouldUseAppLayout() {
-    const ua = navigator.userAgent || "";
-    const inAppWebView = /(MicroMessenger|QQ\/|Weibo|Feishu|Lark|DingTalk|DingDing|BytedanceWebview|Toutiao)/i.test(ua);
-    const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
-    return window.innerWidth <= APP_LAYOUT_BREAKPOINT && (inAppWebView || coarsePointer);
+    return window.innerWidth <= APP_LAYOUT_BREAKPOINT;
   }
 
   function applyAppLayoutClass() {
