@@ -43,13 +43,18 @@
   }
 
   function applyAppLayoutClass() {
+    const wasApp = document.documentElement.classList.contains("app-layout");
     const on = shouldUseAppLayout();
     document.documentElement.classList.toggle("app-layout", on);
     document.body.classList.toggle("app-layout", on);
-    if (on && TOPNAV.classList.contains("is-work")) {
+    /* 仅在首次进入窄屏 app 布局时展开二级，避免每次 resize 清掉 scroll-hide */
+    if (on && !wasApp && TOPNAV.classList.contains("is-work")) {
       TOPNAV.classList.remove("is-subnav-hidden", "is-subnav-hover");
     }
     syncWorkTabAriaExpanded();
+    if (TOPNAV.classList.contains("is-work")) {
+      requestAnimationFrame(() => updateWorkSubnavScrollState());
+    }
   }
 
   function isAppLayout() {
@@ -63,8 +68,7 @@
     const hoverPeek = TOPNAV.classList.contains("is-subnav-hover");
     const expanded =
       hoverPeek ||
-      (onWork &&
-        (!TOPNAV.classList.contains("is-subnav-hidden") || isAppLayout()));
+      (onWork && !TOPNAV.classList.contains("is-subnav-hidden"));
     WORK_TAB.setAttribute("aria-expanded", expanded ? "true" : "false");
   }
 
@@ -118,6 +122,10 @@
       clearSubnavHoverTimer();
     }
     syncWorkTabAriaExpanded();
+    /* 已在 Work 内仅换 hash（如 #work-jianying → #work）：用当前滚动位置同步二级显隐 */
+    if (enteringWork && isAppLayout() && wasWork) {
+      updateWorkSubnavScrollState();
+    }
   }
 
   function setActiveSubtab(project) {
@@ -174,7 +182,15 @@
     syncHomeAmbientRoute(page);
     revealHomeHeroHeadline();
     if (scroll === "top") {
-      requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "auto" }));
+      requestAnimationFrame(() => {
+        window.scrollTo({ top: 0, behavior: "auto" });
+        /* 先滚到顶再同步顶栏/二级：避免仍用旧 scrollY 把移动端二级立刻打成 hidden */
+        requestAnimationFrame(() => {
+          onScroll();
+        });
+      });
+    } else {
+      onScroll();
     }
   }
 
@@ -221,11 +237,8 @@
 
   function scheduleSubnavAutoHide(delay = SUBNAV_AUTO_HIDE_DELAY) {
     clearSubnavAutoHideTimer();
-    if (isAppLayout()) {
-      TOPNAV.classList.remove("is-subnav-hidden");
-      syncWorkTabAriaExpanded();
-      return;
-    }
+    /* 移动端二级仅由滚动控制显隐，不用 3s 定时收起 */
+    if (isAppLayout()) return;
     if (!TOPNAV.classList.contains("is-work")) return;
     subnavAutoHideTimer = window.setTimeout(() => {
       TOPNAV.classList.add("is-subnav-hidden");
@@ -277,12 +290,20 @@
 
   function updateWorkSubnavScrollState() {
     if (!TOPNAV.classList.contains("is-work")) return;
+    const y = window.scrollY;
     if (isAppLayout()) {
-      TOPNAV.classList.remove("is-subnav-hidden");
+      /* 首屏（顶部附近）展开二级；上滑离开首屏即收起；滚回顶部再展开 */
+      if (y <= SUBNAV_SCROLL_HIDE_Y) {
+        TOPNAV.classList.remove("is-subnav-hidden");
+      } else {
+        TOPNAV.classList.add("is-subnav-hidden");
+        /* 去掉悬停预览 class，否则 2831 条在 hidden 时仍会把 .subnav 设为 display:block，上滑收起形同失效 */
+        TOPNAV.classList.remove("is-subnav-hover");
+        clearSubnavAutoHideTimer();
+      }
       syncWorkTabAriaExpanded();
       return;
     }
-    const y = window.scrollY;
     if (y > SUBNAV_SCROLL_HIDE_Y) {
       TOPNAV.classList.add("is-subnav-hidden");
       clearSubnavAutoHideTimer();

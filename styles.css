@@ -425,31 +425,17 @@ html.app-layout .tab {
 html.app-layout .nav-cta {
   display: none;
 }
-html.app-layout .topnav.is-work .subnav {
-  max-height: var(--subnav-max-h);
-  opacity: 1;
-  pointer-events: auto;
-}
-html.app-layout .topnav.is-work.is-subnav-hidden .subnav {
-  max-height: var(--subnav-max-h);
-  opacity: 1;
-  pointer-events: auto;
-}
 html.app-layout .subnav__inner {
-  justify-content: center;
+  /* flex-start：横滑时从左侧起算，避免 center+overflow 把「剪小映」顶出可视区 */
+  justify-content: flex-start;
   align-items: center;
   text-align: center;
-  gap: var(--s-12);
+  gap: 14px;
   height: var(--subnav-h);
   min-height: var(--subnav-h);
+  /* 一级首字：gutter + .tabs 2px + .tab 水平 padding 4px；二级首字：inner 左 + .subtab border 1px + 与一级相同的水平 padding 4px */
   padding: 0 max(var(--subnav-gutter), env(safe-area-inset-right)) 0
-    max(var(--subnav-gutter), env(safe-area-inset-left));
-}
-html.app-layout .subnav__inner .subtab {
-  min-width: 72px;
-  height: 36px;
-  padding: 0 10px;
-  font-size: 13px;
+    calc(max(var(--subnav-gutter), env(safe-area-inset-left)) + 2px + 4px - 4px - 1px);
 }
 html.app-layout .page > section,
 html.app-layout .page > header,
@@ -2761,13 +2747,33 @@ body.js-reveal .ability-multi__media-item.is-revealed {
 html.app-layout {
   --gutter: 16px;
   --subnav-gutter: 16px;
-  /* App rhythm grid: 4px baseline */
+  /* 4px 基线刻度（水平/杂项仍可用） */
+  --app-space-0: 4px;
   --app-space-1: 8px;
   --app-space-2: 12px;
   --app-space-3: 16px;
   --app-space-4: 24px;
   --app-space-5: 32px;
   --app-space-6: 48px;
+  --app-space-7: 64px;
+  --app-space-8: 80px;
+  /*
+   * 垂直节奏（同类信息只用同一档，避免 margin 与 gap 混用导致加倍）
+   * micro 4 · caption 8（主→次一行）· snug 16（同组零件）· stack 24（同组段落）· block 48（块与块）· section 64（模块边距）
+   */
+  --app-y-micro: 4px;
+  --app-y-caption: 8px;
+  --app-y-snug: 16px;
+  --app-y-stack: 24px;
+  --app-y-block: 48px;
+  --app-y-section: 64px;
+  /* 兼容本文件既有别名 */
+  --app-stack-xs: var(--app-y-caption);
+  --app-stack-sm: var(--app-y-snug);
+  --app-stack-md: var(--app-y-stack);
+  --app-block-gap: var(--app-y-block);
+  --app-section-y: var(--app-y-section);
+  --app-section-gap: var(--app-y-section);
   overflow-x: clip;
 }
 html.app-layout body {
@@ -2841,15 +2847,17 @@ html.app-layout .topnav.is-work:not(.is-subnav-hidden) {
   box-shadow: none;
 }
 
-/* App：Work 路由常驻二级栏；非 Work 时悬停 Work 也可展开预览 */
-html.app-layout .topnav.is-work .subnav,
-html.app-layout .topnav.is-work.is-subnav-hidden .subnav,
+/* App：Work 下二级常驻，但 scroll / 交互可打 is-subnav-hidden 收起；非 Work 时悬停 Work 预览 */
+html.app-layout .topnav.is-work:not(.is-subnav-hidden) .subnav,
 html.app-layout .topnav.is-work.is-subnav-hover .subnav,
 html.app-layout .topnav.is-subnav-hover:not(.is-work) .subnav {
   display: block;
   max-height: none;
   opacity: 1;
   pointer-events: auto;
+}
+html.app-layout .topnav.is-work.is-subnav-hidden:not(.is-subnav-hover) .subnav {
+  display: none;
 }
 html.app-layout .subnav {
   position: static;
@@ -2870,42 +2878,64 @@ html.app-layout .topnav:not(.is-work):not(.is-subnav-hover) .subnav {
   display: none;
 }
 html.app-layout .subnav__inner {
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   text-align: center;
-  gap: 10px;
+  gap: 14px;
   height: var(--subnav-h);
   min-height: var(--subnav-h);
-  padding: 0 max(16px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left));
+  /* 一级首字：inner + .tabs 2px + .tab 水平 padding 4px；二级首字：inner 左 + .subtab border 1px + 与一级相同的水平 padding 4px */
+  padding: 0 max(16px, env(safe-area-inset-right)) 0
+    calc(max(16px, env(safe-area-inset-left)) + 2px + 4px - 4px - 1px);
   border-top: none;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
+html.app-layout .subnav__inner::-webkit-scrollbar {
+  display: none;
+}
+/* App 二级：水平 padding / 字距与一级 .tab 一致（4px + gap 14px + 4px），勿用 min-width 槽位 + 居中 */
 html.app-layout .subnav__inner .subtab {
-  min-width: auto;
-  height: 32px;
-  padding: 0 12px;
+  min-width: 0;
+  justify-content: flex-start;
+  height: 40px;
+  padding: 0 var(--s-4);
   font-size: 12px;
-  border-radius: 10px;
-  border: 1px solid rgba(14, 14, 12, 0.12);
-  background: rgba(255, 255, 255, 0.92);
+  line-height: 18px;
+  border-radius: var(--r-full);
+  border: 1px solid transparent;
+  background: transparent;
   color: var(--text-body);
+  font-weight: 400;
+  box-shadow: none;
+}
+html.app-layout .subnav__inner .subtab__title {
+  transform: none;
+  line-height: inherit;
 }
 html.app-layout .subnav__inner .subtab.is-active {
-  background: var(--accent-soft);
-  border-color: rgba(232, 93, 60, 0.35);
+  font-weight: 500;
+  background: transparent;
+  border-color: transparent;
   color: var(--accent);
+  box-shadow: none;
 }
 html.app-layout .subnav__inner .subtab.is-active .subtab__title {
   color: var(--accent);
 }
 html.app-layout .subnav__inner .subtab.is-active:hover {
-  background: transparent;
-  border-color: rgba(232, 93, 60, 0.35);
   color: var(--accent);
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
 }
 html.app-layout .subnav__inner .subtab:hover:not(.is-active) {
-  border-color: rgba(14, 14, 12, 0.12);
-  background: rgba(255, 255, 255, 0.92);
   color: var(--text-ink);
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
 }
 
 html.app-layout .main {
@@ -2921,18 +2951,18 @@ html.app-layout .home-hero__row {
   padding-right: max(var(--gutter), env(safe-area-inset-right));
 }
 
-/* Home rhythm */
+/* Home rhythm — Hero 与 Category 是两个分组，section 之间用 --app-section-gap (64) */
 html.app-layout .home-hero {
-  padding-top: var(--app-space-6);
-  padding-bottom: var(--app-space-6);
+  padding-top: var(--app-section-y);
+  padding-bottom: var(--app-section-y);
 }
 html.app-layout .home-hero__row {
   grid-template-columns: 1fr;
-  gap: var(--app-space-4);
+  gap: var(--app-stack-md);
   align-items: start;
 }
 html.app-layout .home-hero__headline {
-  gap: var(--app-space-1);
+  gap: var(--app-y-caption);
 }
 html.app-layout .home-hero__headline > .latin.home-hero__headline-line {
   font-size: clamp(42px, 12vw, 56px);
@@ -2941,6 +2971,10 @@ html.app-layout .home-hero__headline > .latin.home-hero__headline-line {
 html.app-layout .home-hero__headline-italic {
   font-size: clamp(44px, 11vw, 54px);
   line-height: 1.02;
+}
+html.app-layout .home-hero__aside {
+  gap: var(--app-y-stack);
+  max-width: none;
 }
 html.app-layout .home-hero__meta {
   font-size: 10px;
@@ -2952,9 +2986,16 @@ html.app-layout .home-hero__supporting {
   padding-bottom: 0;
 }
 
-/* Project cards / home categories */
+/* Project cards / home categories — 纵向只用 gap，避免 rule 上 margin 与 headline 区不一致 */
 html.app-layout .cat-entries {
-  padding-bottom: var(--app-space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--app-y-stack);
+  padding-top: 0;
+  padding-bottom: var(--app-section-y);
+}
+html.app-layout .cat-entries__rule {
+  margin: 0;
 }
 html.app-layout .cat-grid {
   grid-template-columns: 1fr;
@@ -2969,7 +3010,10 @@ html.app-layout .cat-grid li:last-child .cat-card {
 html.app-layout .cat-card {
   min-height: 132px;
   height: auto;
-  padding: var(--app-space-4) var(--app-space-2) var(--app-space-3);
+  padding: var(--app-y-stack) var(--app-y-snug);
+}
+html.app-layout .cat-card__body {
+  gap: var(--app-y-caption);
 }
 html.app-layout .cat-card__title {
   font-size: 20px;
@@ -2979,30 +3023,48 @@ html.app-layout .cat-card__role {
   line-height: 18px;
 }
 
-/* About / Contact */
+/* About — 模块内：头与 body 之间只算一次 block（flex gap），不要 margin-top 再叠一层 */
 html.app-layout .about {
-  padding-top: var(--app-space-6);
-  padding-bottom: var(--app-space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--app-block-gap);
+  padding-top: var(--app-section-y);
+  padding-bottom: var(--app-section-y);
 }
 html.app-layout .about__body {
   grid-template-columns: 1fr;
-  gap: var(--app-space-5);
+  gap: var(--app-block-gap);
+  margin-top: 0;
 }
 html.app-layout .about__col-left {
   flex-direction: column;
-  gap: var(--app-space-3);
+  gap: var(--app-y-stack);
 }
 html.app-layout .about__portrait {
   width: 100%;
   max-width: 360px;
 }
+html.app-layout .about__col-right {
+  gap: var(--app-block-gap);
+}
+html.app-layout .about__rule {
+  margin-top: var(--app-y-snug);
+}
+html.app-layout .about__item {
+  padding: var(--app-y-stack) 0;
+  gap: var(--app-y-caption);
+}
+/* Contact — section 上下 64，卡片内分组 32 / 列表 16 */
 html.app-layout .contact {
-  padding: var(--app-space-4) 0;
+  padding: var(--app-section-y) 0;
 }
 html.app-layout .contact__card {
   border-radius: 20px;
-  padding: var(--app-space-5) var(--app-space-3);
-  gap: var(--app-space-4);
+  padding: var(--app-block-gap) var(--app-stack-md);
+  gap: var(--app-block-gap);
+}
+html.app-layout .contact__head {
+  gap: var(--app-stack-sm);
 }
 html.app-layout .contact__title {
   font-size: clamp(36px, 11vw, 48px);
@@ -3010,29 +3072,38 @@ html.app-layout .contact__title {
 html.app-layout .contact__bottom {
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--app-space-3);
+  gap: var(--app-stack-md);
+}
+html.app-layout .contact__methods {
+  gap: var(--app-y-snug);
 }
 
-/* Work pages: card-like reading rhythm */
+/* Work pages: card-like reading rhythm
+   Work hero（项目信息 + 视频）：sections 上下 64，hero 内三组 40，proj-header 内紧致 12，intro 内 16 */
 html.app-layout .work-hero,
 html.app-layout .work-hero.work-hero--split {
   flex-direction: column;
   align-items: stretch;
-  gap: var(--app-space-4);
-  padding-top: var(--app-space-5);
-  padding-bottom: var(--app-space-5);
+  gap: var(--app-block-gap);
+  padding-top: var(--app-section-y);
+  padding-bottom: var(--app-section-y);
 }
 html.app-layout .work-hero__left,
 html.app-layout .work-hero.work-hero--split .work-hero__left {
   width: 100%;
   max-width: none;
-  gap: var(--app-space-4);
+  gap: var(--app-block-gap);
   justify-content: flex-start;
+}
+html.app-layout .page--work .proj-header {
+  gap: var(--app-y-snug);
 }
 html.app-layout .work-hero__left .proj-header {
   padding-top: 0;
   padding-bottom: 0;
-  gap: var(--app-space-2);
+}
+html.app-layout .work-hero__intro {
+  gap: var(--app-y-snug);
 }
 html.app-layout .proj-header__logo,
 html.app-layout .proj-header__logo img {
@@ -3050,57 +3121,98 @@ html.app-layout .process__step-copy {
   font-size: 14px;
   line-height: 24px;
 }
+/* Overview：同组 title / sub / copy 间距统一为 caption / stack；section 上下对称 block */
 html.app-layout .overview {
   grid-template-columns: 1fr;
-  gap: var(--app-space-4);
-  padding-top: var(--app-space-5);
+  gap: var(--app-y-snug);
+  padding-top: var(--app-block-gap);
+  padding-bottom: var(--app-block-gap);
 }
 html.app-layout .overview__title {
   font-size: 24px;
   line-height: 34px;
 }
+html.app-layout .overview__sub {
+  margin-top: var(--app-y-caption);
+}
+html.app-layout .overview__doc-link {
+  margin-top: var(--app-y-stack);
+}
+html.app-layout .overview__copy-col .overview__copy + .overview__copy {
+  margin-top: var(--app-y-snug);
+}
+html.app-layout .overview__copy-en {
+  margin-top: var(--app-y-stack);
+}
+/* Process：纵向只用父级 flex gap（block），子项 margin 清零，避免 head margin + row margin 加倍 */
 html.app-layout .process {
-  padding-top: var(--app-space-6);
-  padding-bottom: var(--app-space-6);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--app-block-gap);
+  padding-top: var(--app-section-y);
+  padding-bottom: var(--app-section-y);
+}
+html.app-layout .process > * {
+  margin-block: 0;
+}
+html.app-layout .process + .quote-block {
+  margin-top: var(--app-block-gap);
 }
 html.app-layout .process__head {
-  margin-bottom: var(--app-space-5);
+  margin-bottom: 0;
+}
+html.app-layout .process__head > .process__title:first-child {
+  margin-top: 0;
 }
 html.app-layout .process__title {
+  margin-top: var(--app-y-snug);
   font-size: 26px;
   line-height: 36px;
+}
+html.app-layout .process__eyebrow {
+  margin: var(--app-y-snug) 0 0;
+}
+html.app-layout .process__meta {
+  margin-top: var(--app-y-snug);
+  gap: var(--app-y-caption);
 }
 html.app-layout .process__row,
 html.app-layout .process__row--2col {
   grid-template-columns: 1fr;
-  margin-top: var(--app-space-5);
-  gap: var(--app-space-5);
+  gap: var(--app-block-gap);
 }
 html.app-layout .process__media-pair {
   grid-template-columns: 1fr;
-  gap: var(--app-space-3);
+  gap: var(--app-y-snug);
 }
 html.app-layout .process__step-title {
   font-size: 20px;
   line-height: 30px;
-  margin-top: var(--app-space-4);
+  margin-top: var(--app-y-snug);
 }
+html.app-layout .process__step-copy {
+  margin-top: var(--app-y-caption);
+}
+/* Quote：section 上下 64；标志与正文 24 */
 html.app-layout .quote-block__inner {
-  padding: var(--app-space-6) var(--gutter);
-  gap: var(--app-space-4);
+  padding: var(--app-section-y) var(--gutter);
+  gap: var(--app-stack-md);
 }
 html.app-layout .quote-block__text {
   font-size: 19px;
   line-height: 30px;
 }
+/* Next link：section 上下 64；CTA 内分组 16 */
 html.app-layout .next-link {
-  padding-top: var(--app-space-6);
-  padding-bottom: var(--app-space-6);
+  padding-top: var(--app-section-y);
+  padding-bottom: var(--app-section-y);
+  gap: var(--app-stack-sm);
 }
 html.app-layout .next-link__cta {
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--app-space-2);
+  gap: var(--app-stack-sm);
 }
 html.app-layout .next-link__label {
   font-size: clamp(28px, 9vw, 34px);
@@ -3141,35 +3253,51 @@ html.app-layout #page-work-smart-edit .smart-edit__extend-pair .process__media--
   object-position: top center;
 }
 
-/* Ability page */
+/* Ability page — 3up / multi 卡片：卡间 48；卡内 media→title 16，title→copy 8 */
 html.app-layout .ability-3up {
   grid-template-columns: 1fr;
-  gap: var(--app-space-5);
+  gap: var(--app-block-gap);
 }
 html.app-layout .ability-card__title {
-  margin-top: var(--app-space-4);
+  margin-top: var(--app-y-snug);
   font-size: 22px;
   line-height: 32px;
 }
 html.app-layout .ability-card__copy {
-  margin-top: var(--app-space-2);
+  margin-top: var(--app-y-caption);
   font-size: 14px;
   line-height: 24px;
 }
 html.app-layout .ability-multi {
   grid-template-columns: 1fr;
-  gap: var(--app-space-5);
+  gap: var(--app-block-gap);
 }
 html.app-layout .ability-multi__media-item {
   aspect-ratio: 16 / 9;
 }
 html.app-layout .ability-multi__title {
-  margin-top: var(--app-space-4);
+  margin-top: var(--app-y-snug);
   font-size: 22px;
   line-height: 32px;
 }
 html.app-layout .ability-multi__copy {
-  margin-top: var(--app-space-2);
+  margin-top: var(--app-y-caption);
   font-size: 14px;
   line-height: 24px;
+}
+/* Ability：页内 section 间距统一；不用整页 flex gap（避免与 footer 之间误插大块） */
+html.app-layout .page--ability {
+  padding-top: var(--app-section-y);
+  padding-bottom: var(--app-section-y);
+}
+html.app-layout .page--ability > .ability-3up,
+html.app-layout .page--ability > .ability-multi {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+html.app-layout .page--ability > .ability-multi {
+  margin-top: var(--app-section-y);
+}
+html.app-layout .page--ability > .footer-mini {
+  margin-top: var(--app-section-y);
 }
