@@ -13,6 +13,9 @@
   --text-ink: #0e0e0c;
   --text-body: #3a3a35;
   --text-muted: #8a8a85;
+  /* Homepage · Grid 6 序号 / 角色（Figma 直接色值） */
+  --text-cat-num: #a3a39c;
+  --text-role-muted: #7a7a74;
   --text-subtle: #b8b6ae;
   --text-on-ink: #f5f4ef;
 
@@ -192,22 +195,22 @@ html:not(.app-layout) .topnav.is-scrolled.is-work:not(.is-subnav-hidden) {
 .tab {
   position: relative;
   padding: var(--s-8) var(--s-4);
-  font-family: var(--font-sans);
-  font-weight: 500;
+  font-family: var(--font-cn), var(--font-sans);
+  font-weight: 400;
   font-size: 15px;
-  color: var(--text-body);
-  transition: color 0.18s ease;
+  color: var(--text-muted);
+  transition: color 0.18s ease, font-weight 0.18s ease;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
   gap: 6px;
 }
 .tab:hover { color: var(--text-ink); }
-.tab.is-active { color: var(--text-ink); }
+.tab.is-active { color: var(--text-ink); font-weight: 500; }
 .tab__dot {
   width: 4px; height: 4px;
   border-radius: var(--r-full);
-  background: var(--accent);
+  background: var(--bg-ink);
   opacity: 0;
   transition: opacity 0.2s ease;
   flex-shrink: 0;
@@ -243,15 +246,20 @@ html:not(.app-layout) .topnav.is-scrolled.is-work:not(.is-subnav-hidden) {
   opacity: 0.85;
 }
 
-.nav-cta {
+.topnav__actions {
   justify-self: end;
-  display: inline-flex; align-items: center; gap: var(--s-12);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-16);
+}
+.nav-cta {
+  display: inline-flex; align-items: center; gap: 10px;
   padding: 10px 20px;
   background: var(--bg-ink);
   color: var(--text-on-ink);
   border-radius: var(--r-full);
-  font-family: var(--font-sans);
-  font-size: 14px;
+  font-family: var(--font-cn), var(--font-sans);
+  font-size: 15px;
   font-weight: 500;
   transition: transform 0.2s ease, background 0.2s ease;
 }
@@ -268,7 +276,8 @@ html:not(.app-layout) .topnav.is-scrolled.is-work:not(.is-subnav-hidden) {
   left: 0;
   right: 0;
   top: 100%;
-  z-index: 2;
+  /* 收起时置于 .topnav__inner 之下，避免异常层叠挡住一级 tab 的 hover/click */
+  z-index: 0;
   max-height: 0;
   overflow: hidden;
   background: transparent;
@@ -277,12 +286,14 @@ html:not(.app-layout) .topnav.is-scrolled.is-work:not(.is-subnav-hidden) {
   border-bottom: none;
   box-shadow: none;
   opacity: 1;
+  pointer-events: none;
   transition: max-height 0.36s cubic-bezier(0.4, 0, 0.2, 1),
               opacity 0.22s ease;
 }
 /* 展开：非 Work 页悬停 Work 也可预览；Work 页未 scroll-hide 时常驻 */
 .topnav.is-subnav-hover .subnav,
 .topnav.is-work:not(.is-subnav-hidden) .subnav {
+  z-index: 2;
   max-height: var(--subnav-max-h);
   opacity: 1;
   pointer-events: auto;
@@ -332,7 +343,7 @@ html:not(.app-layout) .topnav.is-scrolled.is-work:not(.is-subnav-hidden) {
   font-family: var(--font-cn), var(--font-sans);
   font-size: 14px;
   font-weight: 400;
-  color: var(--text-body);
+  color: var(--text-muted);
   background: transparent;
   border: 1px solid transparent;
   transition: color 0.18s ease,
@@ -357,22 +368,22 @@ html:not(.app-layout) .topnav.is-scrolled.is-work:not(.is-subnav-hidden) {
   box-shadow: none;
 }
 
-/* 选中态：Figma Grid 7 — 品牌色文字 + Medium（非深色描边胶囊） */
+/* 选中态：与一级 Home 一致 — 墨色 + Medium */
 .subtab.is-active {
   font-weight: 500;
-  color: var(--accent);
+  color: var(--text-ink);
   border-color: transparent;
   background: transparent;
   box-shadow: none;
 }
 .subtab.is-active:hover {
-  color: var(--accent);
+  color: var(--text-ink);
   border-color: transparent;
   background: transparent;
   box-shadow: none;
 }
 .subtab:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--text-ink);
   outline-offset: 3px;
 }
 
@@ -422,7 +433,7 @@ html.app-layout .tabs {
 html.app-layout .tab {
   font-size: 13px;
 }
-html.app-layout .nav-cta {
+html.app-layout .topnav__actions {
   display: none;
 }
 html.app-layout .subnav__inner {
@@ -523,6 +534,9 @@ html.app-layout .home-hero__row {
    ========================================= */
 .home-hero {
   /* Figma Hero: pt 124px; headline block → Category: 124px */
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   padding-top: clamp(72px, 10vw, 124px);
   padding-bottom: clamp(72px, 12vw, 124px);
 }
@@ -538,6 +552,7 @@ html.app-layout .home-hero__row {
 }
 .home-hero__row {
   box-sizing: border-box;
+  width: 100%;
   max-width: var(--page-max);
   margin-left: auto;
   margin-right: auto;
@@ -563,25 +578,29 @@ html.app-layout .home-hero__row {
   color: var(--text-ink);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  align-items: flex-start;
+  gap: 22px;
+  min-width: 0;
+  max-width: 100%;
 }
-.home-hero__headline > .latin.home-hero__headline-line {
-  font-weight: 400;
+.home-hero__headline > .home-hero__headline-line {
+  font-family: var(--font-cn), var(--font-sans);
+  font-weight: 300;
   font-size: clamp(48px, 8.6vw, 124px);
-  line-height: 1.05;
-  max-width: min(900px, 100%);
+  line-height: 1.097;
+  width: fit-content;
+  max-width: 100%;
   padding-left: 0;
   letter-spacing: -0.07em;
+  box-sizing: border-box;
 }
-.home-hero__headline-italic {
-  font-family: "Playball", var(--font-script);
-  font-style: normal;
-  font-weight: 400;
-  letter-spacing: 0;
-  color: var(--text-ink);
-  font-size: clamp(40px, 7.2vw, 112px);
-  line-height: 1.02;
-  margin-top: 0;
+.home-hero__headline-skew {
+  display: inline-block;
+  /* skew 后字形会侵入后续「而成」的占位，用 margin 拉开视觉与排版间距 */
+  margin-inline-end: 0.2em;
+  vertical-align: baseline;
+  transform: skewX(-15deg) scaleY(0.97);
+  transform-origin: center bottom;
 }
 .home-hero__supporting {
   margin: 0;
@@ -593,7 +612,7 @@ html.app-layout .home-hero__row {
   padding-bottom: var(--s-16);
 }
 
-/* Home headline：三段同时入场（整块，无逐字 stagger） */
+/* Home headline：两行同时入场（整块，无逐字 stagger） */
 .home-hero__headline-line {
   display: block;
   margin-left: 0;
@@ -687,7 +706,7 @@ html.app-layout .home-hero__row {
   font-family: var(--font-sans);
   font-size: 14px;
   font-weight: 500;
-  color: var(--text-muted);
+  color: var(--text-cat-num);
   letter-spacing: 0.02em;
   line-height: 20px;
 }
@@ -734,7 +753,7 @@ html.app-layout .home-hero__row {
   font-family: var(--font-cn);
   font-size: 14px;
   line-height: 24px;
-  color: var(--text-muted);
+  color: var(--text-role-muted);
   font-weight: 400;
   letter-spacing: 0;
 }
@@ -2289,9 +2308,17 @@ html.app-layout .home-hero__row {
 
   :root { --gutter: 32px; }
   .home-hero__row { grid-template-columns: 1fr; gap: var(--s-48); align-items: start; }
+  .home-hero {
+    padding-top: clamp(56px, 8vw, 96px);
+    padding-bottom: clamp(48px, 9vw, 96px);
+  }
+  .home-hero__headline > .home-hero__headline-line {
+    font-size: clamp(40px, 7.2vw, 80px);
+  }
   .home-hero__aside {
     justify-self: start;
-    max-width: min(480px, 100%);
+    width: 100%;
+    max-width: min(520px, 100%);
   }
   .home-hero__supporting { padding-bottom: 0; max-width: none; }
   .cat-grid { grid-template-columns: repeat(3, 1fr); }
@@ -2396,7 +2423,10 @@ html.app-layout .home-hero__row {
     gap: var(--s-8);
   }
   .brand { grid-area: brand; }
-  .nav-cta { grid-area: cta; }
+  .topnav__actions {
+    grid-area: cta;
+    justify-self: end;
+  }
   .tabs {
     grid-area: tabs;
     justify-self: start;
@@ -2833,7 +2863,7 @@ html.app-layout .tab__arrow svg {
   width: 9px;
   height: 9px;
 }
-html.app-layout .nav-cta {
+html.app-layout .topnav__actions {
   display: none;
 }
 
@@ -2907,7 +2937,7 @@ html.app-layout .subnav__inner .subtab {
   border-radius: var(--r-full);
   border: 1px solid transparent;
   background: transparent;
-  color: var(--text-body);
+  color: var(--text-muted);
   font-weight: 400;
   box-shadow: none;
 }
@@ -2919,14 +2949,14 @@ html.app-layout .subnav__inner .subtab.is-active {
   font-weight: 500;
   background: transparent;
   border-color: transparent;
-  color: var(--accent);
+  color: var(--text-ink);
   box-shadow: none;
 }
 html.app-layout .subnav__inner .subtab.is-active .subtab__title {
-  color: var(--accent);
+  color: inherit;
 }
 html.app-layout .subnav__inner .subtab.is-active:hover {
-  color: var(--accent);
+  color: var(--text-ink);
   background: transparent;
   border-color: transparent;
   box-shadow: none;
@@ -2963,14 +2993,14 @@ html.app-layout .home-hero__row {
 }
 html.app-layout .home-hero__headline {
   gap: var(--app-y-caption);
+  min-width: 0;
+  max-width: 100%;
 }
-html.app-layout .home-hero__headline > .latin.home-hero__headline-line {
-  font-size: clamp(42px, 12vw, 56px);
+html.app-layout .home-hero__headline > .home-hero__headline-line {
+  font-size: clamp(36px, 9.2vw, 56px);
   line-height: 1.04;
-}
-html.app-layout .home-hero__headline-italic {
-  font-size: clamp(44px, 11vw, 54px);
-  line-height: 1.02;
+  width: fit-content;
+  max-width: 100%;
 }
 html.app-layout .home-hero__aside {
   gap: var(--app-y-stack);

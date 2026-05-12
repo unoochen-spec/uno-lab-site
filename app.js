@@ -23,7 +23,7 @@
   /** 由 Home 氛围脚本挂载：路由切换时启停粒子画布 */
   let syncHomeAmbientRoute = () => {};
 
-  /** Home 主标题：三段整块同时播放入场（CSS animation，无拆字） */
+  /** Home 主标题：两行整块同时播放入场（CSS animation，无拆字） */
   function revealHomeHeroHeadline() {
     if (!HOME_HERO_HEADLINE) return;
     if (parseHash().page !== "home") return;
@@ -196,14 +196,14 @@
 
   function pageTitle(page) {
     const map = {
-      "home": "Home — Uno’s Portfolio",
-      "ability": "Ability — Uno’s Portfolio",
-      "work-xiaoying": "Work · 剪小映 — Uno’s Portfolio",
-      "work-jianying": "Work · 剪映 — Uno’s Portfolio",
-      "work-smart-edit": "Work · Smart Edit — Uno’s Portfolio",
-      "work-capcut": "Work · CapCut — Uno’s Portfolio",
-      "work-dianjing": "Work · 企鹅电竞 — Uno’s Portfolio",
-      "work-trovo": "Work · Trovo — Uno’s Portfolio",
+      "home": "首页 — Uno’s Portfolio",
+      "ability": "能力 — Uno’s Portfolio",
+      "work-xiaoying": "项目 · 剪小映 — Uno’s Portfolio",
+      "work-jianying": "项目 · 剪映 — Uno’s Portfolio",
+      "work-smart-edit": "项目 · Smart Edit — Uno’s Portfolio",
+      "work-capcut": "项目 · CapCut — Uno’s Portfolio",
+      "work-dianjing": "项目 · 企鹅电竞 — Uno’s Portfolio",
+      "work-trovo": "项目 · Trovo — Uno’s Portfolio",
     };
     return map[page] || "Uno’s Portfolio";
   }
@@ -274,17 +274,27 @@
   }
 
   if (WORK_TAB && SUBNAV_EL) {
+    /* pointer*：兼容触控笔/部分浏览器；mouse*：传统鼠标 */
+    WORK_TAB.addEventListener("pointerenter", openWorkSubnavHover);
+    WORK_TAB.addEventListener("pointerleave", scheduleCloseWorkSubnavHover);
     WORK_TAB.addEventListener("mouseenter", openWorkSubnavHover);
     WORK_TAB.addEventListener("mouseleave", scheduleCloseWorkSubnavHover);
+    SUBNAV_EL.addEventListener("pointerenter", openWorkSubnavHover);
+    SUBNAV_EL.addEventListener("pointerleave", scheduleCloseWorkSubnavHover);
     SUBNAV_EL.addEventListener("mouseenter", openWorkSubnavHover);
     SUBNAV_EL.addEventListener("mouseleave", scheduleCloseWorkSubnavHover);
-    // 触控/点击 Work tab：手动展开 subnav 并重新计时，避免无 hover 设备无法再唤起
-    WORK_TAB.addEventListener("click", () => {
+    // 点击「项目」：默认动作会改 hash，click 先于 hashchange，需延后一帧再判 is-work
+    function revealWorkSubnavAfterClick() {
       if (!TOPNAV.classList.contains("is-work")) return;
       clearSubnavHoverTimer();
       TOPNAV.classList.remove("is-subnav-hidden");
+      TOPNAV.classList.add("is-subnav-hover");
       scheduleSubnavAutoHide(SUBNAV_AUTO_HIDE_DELAY);
       syncWorkTabAriaExpanded();
+    }
+    WORK_TAB.addEventListener("click", () => {
+      revealWorkSubnavAfterClick();
+      window.setTimeout(revealWorkSubnavAfterClick, 0);
     });
   }
 
@@ -337,7 +347,7 @@
     });
   });
 
-  // Top-nav "Contact me" — smooth-scroll to Home's #contact section.
+  // Top-nav「联系我」— smooth-scroll to Home's #contact section.
   // 若当前不在 Home，先切到 Home 再滚到联系方式区块。
   function scrollToContact() {
     const el = document.getElementById("contact");
@@ -675,7 +685,6 @@
     ".next-link",
     ".ability-3up",
     ".ability-multi",
-    ".jianying-pro-band",
     ".overview",
     ".work-hero",
     ".footer",

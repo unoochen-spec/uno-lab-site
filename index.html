@@ -4,11 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Uno’s Portfolio</title>
-    <meta name="description" content="Uno Chen — Designed with intention, felt without effort." />
+    <meta name="description" content="Uno Chen — 有意而为，无感而成。" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Noto+Sans+SC:wght@400;500;700&family=Pinyon+Script&family=Playball&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=Noto+Sans+SC:wght@400;500;700&family=Pinyon+Script&family=Playball&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
@@ -19,7 +19,7 @@
          ========================================= -->
     <header class="topnav" id="topnav" role="banner">
       <div class="topnav__inner">
-        <a href="#home" class="brand" data-tab="home" aria-label="Uno’s Portfolio Home">
+        <a href="#home" class="brand" data-tab="home" aria-label="Uno’s Portfolio 首页">
           <img
             class="brand__mark"
             src="assets/brand-uno-logo.png"
@@ -33,7 +33,7 @@
         </a>
         <nav class="tabs" aria-label="主导航">
           <a class="tab is-active" href="#home" data-tab="home" data-route="home" role="tab">
-            <span>Home</span>
+            <span>首页</span>
             <span class="tab__dot" aria-hidden="true"></span>
           </a>
           <a
@@ -46,7 +46,7 @@
             aria-expanded="false"
           >
             <span class="tab__label">
-              <span>Work</span>
+              <span>项目</span>
               <span class="tab__arrow" aria-hidden="true">
                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -62,16 +62,18 @@
             <span class="tab__dot" aria-hidden="true"></span>
           </a>
           <a class="tab" href="#ability" data-tab="ability" data-route="ability" role="tab">
-            <span>Ability</span>
+            <span>能力</span>
             <span class="tab__dot" aria-hidden="true"></span>
           </a>
         </nav>
-        <a class="nav-cta" href="#contact" data-action="scroll-to-contact">
-          <span>Contact me</span><span class="nav-cta__arrow" aria-hidden="true">→</span>
-        </a>
+        <div class="topnav__actions">
+          <a class="nav-cta" href="#contact" data-action="scroll-to-contact">
+            <span>联系我</span><span class="nav-cta__arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
       </div>
 
-      <div class="subnav" id="subnav" aria-label="Work 二级导航">
+      <div class="subnav" id="subnav" aria-label="项目 二级导航">
         <div class="subnav__inner" role="tablist">
           <a class="subtab is-active" href="#work-xiaoying" data-subtab="xiaoying" role="tab">
             <span class="subtab__title">剪小映</span>
@@ -107,13 +109,9 @@
         <!-- Hero -->
         <section class="home-hero">
           <div class="home-hero__row">
-            <h1
-              class="home-hero__headline"
-              aria-label="Designed with intention, felt without effort."
-            >
-              <span class="latin home-hero__headline-line">Designed with</span>
-              <span class="latin home-hero__headline-line">intention, felt</span>
-              <span class="home-hero__headline-italic home-hero__headline-line">without effort.</span>
+            <h1 class="home-hero__headline" aria-label="有意而为，无感而成。">
+              <span class="home-hero__headline-line">有意而为</span>
+              <span class="home-hero__headline-line"><span class="home-hero__headline-skew">无感</span>而成</span>
             </h1>
             <div class="home-hero__aside">
               <p class="home-hero__meta">
@@ -235,7 +233,7 @@
               <figure class="about__portrait">
                 <img src="assets/portrait.png" alt="Uno Chen" loading="lazy" />
               </figure>
-              <p class="about__quote latin">"Designed with intention, felt without effort."</p>
+              <p class="about__quote">「有意而为，无感而成。」</p>
             </div>
             <div class="about__col-right">
               <div class="about__block">
@@ -353,7 +351,7 @@
               <p class="work-hero__lead">
                 致力于用领先的 AI 图像理解和成片能力，成为用户无需操作的智能生活成片助手，提供一种全新的生活记录方式，打造专属于每个人的生活记录、分享、互动的影像社交产品。让记录更轻松，让回忆更精彩。
               </p>
-              <a class="overview__doc-link" href="https://my.feishu.cn/wiki/Ji5XwQ1ssiulpTk9YmIc3aq2nbg" target="_blank" rel="noopener noreferrer">
+              <a class="overview__doc-link" href="https://my.feishu.cn/wiki/QWO0wlBQTi84i0kSEZNcEeiqn0z" target="_blank" rel="noopener noreferrer">
                 <span>查看完整文档</span>
                 <span aria-hidden="true">→</span>
               </a>
@@ -501,7 +499,7 @@
 
         <section class="next-link">
           <p class="next-link__hint">网站无法承载完整文章信息，如有兴趣请移步飞书文档查看</p>
-          <a class="next-link__cta" href="https://my.feishu.cn/wiki/Ji5XwQ1ssiulpTk9YmIc3aq2nbg" target="_blank" rel="noopener noreferrer">
+          <a class="next-link__cta" href="https://my.feishu.cn/wiki/QWO0wlBQTi84i0kSEZNcEeiqn0z" target="_blank" rel="noopener noreferrer">
             <span class="next-link__label">完整项目文档</span>
             <span class="next-link__circle" aria-hidden="true">
               <span class="next-link__arrow">→</span>
@@ -538,7 +536,7 @@
               </p>
               <a
                 class="overview__doc-link"
-                href="https://my.feishu.cn/wiki/Ji5XwQ1ssiulpTk9YmIc3aq2nbg"
+                href="https://my.feishu.cn/wiki/QWO0wlBQTi84i0kSEZNcEeiqn0z"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -611,76 +609,6 @@
           </div>
         </section>
 
-        <section class="jianying-pro-band" aria-label="剪映专业版 Agent">
-          <div class="jianying-pro-band__inner">
-            <header class="jianying-pro-band__intro">
-              <h2 class="jianying-pro-band__title">剪映专业版 Agent</h2>
-              <p class="jianying-pro-band__lead">
-                打造高效、专业的创作助手，帮助有生产级需求的创作者提升创作效率、提高创作上限（创意上限和技术上限），涵盖从入门、进阶到高阶不同等级制片能力、活跃于不同内容垂类的创作者。
-              </p>
-            </header>
-
-            <div class="jianying-pro-band__grid process__row process__row--2col">
-              <article class="process__step">
-                <figure class="process__media process__media--jianying-pro">
-                  <img
-                    src="assets/jy-s2-1.png"
-                    alt="剪映专业版剪辑工作台与 Agent 入口布局示意"
-                    loading="lazy"
-                  />
-                </figure>
-                <h4 class="process__step-title process__step-title--on-dark">布局规则</h4>
-                <p class="process__step-copy process__step-copy--on-dark">
-                  在不影响用户对剪辑工作台已有认知的基础上，增加Agent默认入口（悬浮与侧边栏两种模式），同时，在布局规则上，需结合目前用户分辨率情况与考虑已有布局形式。
-                </p>
-              </article>
-              <article class="process__step">
-                <figure class="process__media process__media--jianying-pro">
-                  <img
-                    src="assets/jy-s2-2.png"
-                    alt="剪映专业版 PC Agent 与多场景能力界面示意"
-                    loading="lazy"
-                  />
-                </figure>
-                <h4 class="process__step-title process__step-title--on-dark">场景梳理</h4>
-                <p class="process__step-copy process__step-copy--on-dark">
-                  在功能场景维度上，代入用户，梳理真实用户的使用场景，可分为3类场景，承接已有的能力框架。分别为主对话模式-语义粗剪、主对话模式-添加字幕、推荐贴纸和视频生成模式。
-                </p>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <section class="overview overview--jianying-web">
-          <h2 class="overview__title overview__title--jianying-web">剪映图片 Web-体验升级专项</h2>
-          <p class="overview__copy overview__copy--jianying-web">
-            上线图片设计独立 Web，通过强大的设计 Agent+低门槛编辑器，承接好剪映 PC 端内专业图片作者的主流图片物料设计需求，验证用户价值。同时，从用户研究、平台属性研究、国际化产品研究，三个维度做了基础研究，为后续的产品设计提供基础方向，另外，我们从核心链路用户旅程图、竞品分析、体验问题收集，三个方向分析我们目前需要改进的体验问题。
-          </p>
-        </section>
-
-        <section class="process process--jianying-web">
-          <div class="process__row process__row--2col">
-            <article class="process__step">
-              <figure class="process__media process__media--jianying-web">
-                <img src="assets/jy-s3-1.png" alt="" loading="lazy" />
-              </figure>
-              <h4 class="process__step-title">框架搭建</h4>
-              <p class="process__step-copy">
-                搭建专属图片设计独立网页，依托强大设计 Agent + 低门槛编辑器，承接剪映 PC 专业图文创作者的主流物料设计需求，落地用户价值验证；页面框架划分 Agent 对话、空白画板、内容素材三大创作入口，为用户提供多元开启创作的路径。
-              </p>
-            </article>
-            <article class="process__step">
-              <figure class="process__media process__media--jianying-web">
-                <img src="assets/jy-s3-2.png" alt="" loading="lazy" />
-              </figure>
-              <h4 class="process__step-title">延续基础操作</h4>
-              <p class="process__step-copy">
-                延续图片、文字、贴纸、形状、容器等可见即所得的基础图片编辑操作，同时增加 AI 作图的 Agent 形式提供更多创作的路径。
-              </p>
-            </article>
-          </div>
-        </section>
-
         <footer class="footer-mini">
           <span class="latin">© 2026 Uno’s Portfolio</span>
         </footer>
@@ -712,7 +640,7 @@
               </p>
               <a
                 class="overview__doc-link"
-                href="https://my.feishu.cn/wiki/Ji5XwQ1ssiulpTk9YmIc3aq2nbg"
+                href="https://my.feishu.cn/wiki/QWO0wlBQTi84i0kSEZNcEeiqn0z"
                 target="_blank"
                 rel="noopener noreferrer"
               >
